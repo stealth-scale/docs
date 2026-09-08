@@ -2,7 +2,7 @@
 title: The vocabulary
 description: 'Defines each word the pages here use for a part of the system: one meaning per word, grouped by where the part lives.'
 sidebar:
-  order: 7
+  order: 8
 ---
 
 Every page on this site uses one word per concept, and this page holds the meaning of each.

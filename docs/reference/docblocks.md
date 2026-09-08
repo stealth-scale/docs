@@ -2,7 +2,7 @@
 title: Docblocks
 description: The standard for documenting code in every stealth repository - what is documented, the form of a docblock, the summary and the body, every tag with its syntax and type, one complete example per kind of declaration, line comments, and the lint rules that enforce it.
 sidebar:
-  order: 3
+  order: 4
 ---
 
 A docblock, `/** … */`, is documentation a user of the code reads: in an editor on hover, in

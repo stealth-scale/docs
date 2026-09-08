@@ -2,7 +2,7 @@
 title: Documentation
 description: The docs tree every repository carries, the numbered records and their statuses, and how the text is written.
 sidebar:
-  order: 5
+  order: 6
 ---
 
 A reader arrives with a question and reaches the answer in one hop. That is the only thing

@@ -2,7 +2,7 @@
 title: Commit messages
 description: 'The shape of a commit message: the header with its type, scope and imperative summary, the body that says what changed and why, and the footers for a breaking change or an issue. Five headers from the history, rewritten.'
 sidebar:
-  order: 4
+  order: 5
 ---
 
 A commit message is read by someone scanning `git log` for the change that introduced or

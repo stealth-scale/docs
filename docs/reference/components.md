@@ -2,7 +2,7 @@
 title: Documenting a component
 description: The four files of a component, where a prop is described, what a story file holds and proves, what the spec holds, the page, and what the catalogue guarantees.
 sidebar:
-  order: 6
+  order: 7
 ---
 
 Every component in the design system is four files. Nothing is written twice, and nothing
