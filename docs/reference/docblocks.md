@@ -29,7 +29,7 @@ a name says what a thing is called, and a docblock says what it guarantees.
 | A field, a property, a constant                                             | What it holds: the unit, the range, the invariant, who writes it                                                                                       |
 | A React component                                                           | What it draws and for whom; its props interface, member by member                                                                                      |
 | An overload                                                                 | A docblock per overload signature; the implementation signature carries none                                                                           |
-| A spec, a story, a fixtures file, generated code                            | Nothing: the test names and the scene captions are the documentation, and a generator writes its own                                                   |
+| A spec, a story, generated code                                             | Nothing: the test names and the scene captions are the documentation, and a generator writes its own                                                   |
 
 ## The form
 
@@ -460,8 +460,9 @@ who owns the follow-up and what it is; a TODO never sits in a docblock.
 ## What enforces it
 
 `eslint-plugin-jsdoc`, through oxlint's JavaScript plugins as `jsdoc-js/*`, in every
-repository, configured once in the toolchain's preset. In a spec, a story or a fixtures file
-the rules are off.
+repository, configured once in the toolchain's preset. In a spec and a story file the rules
+are off, and in the files Storybook loads by their default export, which are configuration
+rather than source. A fixtures file is source and carries docblocks like any other.
 
 | Rule                                                                                                                                                     | Catches                                                                                                                                                      |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |

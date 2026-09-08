@@ -8,28 +8,28 @@ sidebar:
 ## The tree
 
 A repository's root directories are the concepts a reader of that repository already has,
-written in the plural: `core/` and `tools/` in the toolchain, `foundations/`, `components/`
-and `catalogue/` in the design system, `contracts/`, `web/`, `backend/`, `services/` and
-`plugins/` in the platform. A package is a leaf under one of them. What kind of package it is
-is stated in its README, never in the tree.
+written in the plural: `core/`, `themes/` and `tools/` in the toolchain, `foundations/`,
+`components/` and `catalogue/` in the design system, `contracts/`, `web/`, `backend/`,
+`services/` and `plugins/` in the platform. A package is a leaf under one of them. What kind
+of package it is is stated in its README, never in the tree.
 
 Every repository carries the same files beside its trees:
 
-| File or directory    | Holds                                                                                             |
-| -------------------- | ------------------------------------------------------------------------------------------------- |
-| `README.md`          | What the repository is, its layout, and its commands                                              |
-| `CONTRIBUTING.md`    | From a clean clone to a merged change                                                             |
-| `LICENSE`            | MIT, held by Stealth Scale B.V.                                                                   |
-| `SECURITY.md`        | Where a vulnerability is reported                                                                 |
-| `docs/`              | The tree described in [Documentation](documentation.md)                                           |
-| `.github/workflows/` | Callers of the toolchain's reusable workflows                                                     |
-| `vite.config.ts`     | The one configuration: the toolchain's preset, with what is true of this repository               |
-| `tsconfig.json`      | Extends the toolchain's `tsconfig/base.json`, as every package does with only its `include` added |
-| `bunfig.toml`        | The install policy                                                                                |
-| `.changeset/`        | The pending release notes, in a repository that publishes                                         |
+| File or directory    | Holds                                                                                                                                                          |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `README.md`          | What the repository is, its layout, and its commands                                                                                                           |
+| `CONTRIBUTING.md`    | From a clean clone to a merged change                                                                                                                          |
+| `LICENSE`            | MIT, held by Stealth Scale B.V.                                                                                                                                |
+| `SECURITY.md`        | Where a vulnerability is reported                                                                                                                              |
+| `docs/`              | The tree described in [Documentation](documentation.md)                                                                                                        |
+| `.github/workflows/` | Callers of the toolchain's reusable workflows                                                                                                                  |
+| `vite.config.ts`     | The one configuration: the toolchain's preset, with what is true of this repository                                                                            |
+| `tsconfig.base.json` | Extends the toolchain's `tsconfig/base.json` and names the repository's source condition; `tsconfig.json` and every package's extend it with only an `include` |
+| `bunfig.toml`        | The install policy                                                                                                                                             |
+| `.changeset/`        | The pending release notes, in a repository that publishes                                                                                                      |
 
 Only the root carries a `vite.config.ts`. A package adds one only for what is true of that
-package alone, such as several entries or a dev server's port.
+package alone, such as several entries, a static file it ships, or a dev server's port.
 
 ## Why a package exists
 
@@ -52,12 +52,12 @@ layering rule, never a package.
 ## The name
 
 **A package is named for the singular of its group, then the path below it, with dashes for
-slashes.** The rule has no exceptions; the generator computes the name, and a guard refuses a
-manifest whose name is not its path.
+slashes.** The rule has no exceptions. No tool computes or checks the name yet.
 
 | Directory                    | Name                                      |
 | ---------------------------- | ----------------------------------------- |
 | `core/schema`                | `@stealthscale/core-schema`               |
+| `themes/base`                | `@stealthscale/theme-base`                |
 | `tools/config`               | `@stealthscale/tool-config`               |
 | `components/charts`          | `@stealthscale/component-charts`          |
 | `foundations/theme`          | `@stealthscale/foundation-theme`          |
@@ -73,23 +73,26 @@ never leaves its repository.
 
 A published package's manifest carries:
 
-| Field                  | Value                                                                                                        |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `name`                 | The name above                                                                                               |
-| `description`          | One sentence                                                                                                 |
-| `license`              | `MIT`                                                                                                        |
-| `repository`           | `{ type, url, directory }`, so npm links the source and provenance can check it                              |
-| `type`                 | `module`                                                                                                     |
-| `files`                | `["dist"]`, plus a shipped stylesheet where there is one                                                     |
-| `sideEffects`          | `false`, unless a module runs on import                                                                      |
-| `exports`              | Per entry: `{ "stealth-source": "./src/<entry>.ts", "default": "./dist/<entry>.mjs" }`, and `./package.json` |
-| `publishConfig.access` | `public`                                                                                                     |
-| `scripts.build`        | `vp pack`                                                                                                    |
+| Field                  | Value                                                                                                             |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `name`                 | The name above                                                                                                    |
+| `description`          | One sentence                                                                                                      |
+| `license`              | `MIT`                                                                                                             |
+| `repository`           | `{ type, url, directory }`, so npm links the source and provenance can check it                                   |
+| `type`                 | `module`                                                                                                          |
+| `files`                | `["dist"]`, plus a shipped stylesheet or tsconfig where there is one                                              |
+| `sideEffects`          | `false`, or the list of modules that run on import                                                                |
+| `exports`              | Per entry: `{ "<repository>-source": "./src/<entry>.ts", "default": "./dist/<entry>.mjs" }`, and `./package.json` |
+| `publishConfig.access` | `public`                                                                                                          |
+| `scripts.build`        | `vp pack`                                                                                                         |
 
 The exports map is written by the pack step from the entries the package declares, so it
-cannot drift from what is built. `stealth-source` is the workspace's own condition: turned on
-by the repository's tsconfigs and Vite configs, and by nothing outside it, so inside the
-workspace every package resolves to its source and outside it to `dist`.
+cannot drift from what is built. The source condition is named after the repository,
+`tooling-source` in the toolchain. Inside the workspace the repository's tsconfigs and Vite
+configs turn that one name on, so every package resolves to its source. A package installed
+from the registry carries its own repository's name, which no consumer turns on, so it
+resolves to `dist`. [The repositories](../explanation/repositories.md) says why one shared
+name would not do.
 
 A version is declared once, in the root manifest's catalog, and a package writes `catalog:`;
 a sibling is `workspace:^`, which the pack step rewrites to a caret range. `workspace:*` is
@@ -104,26 +107,19 @@ devDependency, or the bundler vendors a second copy into `dist`.
 
 The first line names the kind and the reason: `A library: …`, `A kit: …`, `A deployable: …`,
 `A cli: …`. Then what the package gives a consumer, and what it does not do. A released
-README ends with an install section written by the toolchain from the package's name and its
-directory, never by hand; a guard holds the file to what the tool writes. Nothing in a README
-narrates history or status.
+README ends with an install section naming the command that installs the package; no tool
+writes or checks that section yet. Nothing in a README narrates history or status.
 
-## What the guards check
+## What the preset checks about the tree
 
-Each rule is a function over the workspace with a spec beside it; the toolchain's preset runs
-them, and a repository adds rules of its own the same way.
+One rule about the tree runs today, through the linter: the layering. The root config names
+each tier, what it may not import and why, and `lintConfig({ layers })` turns that into a
+`no-restricted-imports` rule per tier. It holds for what a package ships; a specification
+may reach for a development-time package whatever tier it sits in.
 
-| Guard       | Refuses                                                                         |
-| ----------- | ------------------------------------------------------------------------------- |
-| names       | A manifest whose name is not the singular of its group plus its path            |
-| pairing     | A source file without a spec beside it, or a spec without a source              |
-| declared    | An import of a workspace package the importing file's manifest does not declare |
-| layers      | A dependency that points up: a tree importing a package of a tree above it      |
-| ownership   | A third-party dependency declared by more than one package                      |
-| stylesheets | A shipped stylesheet that scans anything but its own `dist`                     |
-| readmes     | A released README whose install section is not what the tool writes             |
-| roadmap     | An index table or graph that disagrees with the milestones' own frontmatter     |
-
-A rule never pins a count or a list of what the tree holds today: it states the invariant and
-derives the expectation from the tree, so adding a package edits nothing outside that
-package. When a rule would demand a hand edit, the tool that makes the edit is built first.
+The naming rule above, one spec beside every source, one owner per third-party dependency,
+and a shipped stylesheet scanning only its own `dist` are conventions this page states and no
+test checks yet. When one becomes a rule, it never pins a count or a list of what the tree
+holds today: it states the invariant and derives the expectation from the tree, so adding a
+package edits nothing outside that package. When a rule would demand a hand edit, the tool
+that makes the edit is built first.

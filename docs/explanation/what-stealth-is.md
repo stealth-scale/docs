@@ -18,15 +18,18 @@ Three names carry it, and each one is used for exactly one thing:
 | `@stealthscale` | The npm scope, and the directory the repositories are checked out under                 |
 | `stealth`       | The product line itself: the command-line tool, the export condition, the word in prose |
 
-What Stealth Scale publishes, from four repositories, is described in
-[The repositories](repositories.md). In short: the toolchain that builds, checks, tests and
-releases a stealth repository; the design system a screen is drawn with, and the catalogue
-that documents it; the platform a plugin is written against, with the host, the services and
-the standard plugins; and, privately, one repository per product.
+Stealth Scale publishes from four repositories, which [The repositories](repositories.md)
+describes:
 
-Today the design system and the platform are still one private repository, and they move out
-of it tree by tree. The toolchain and this documentation are the first two repositories to
-stand on their own.
+- the toolchain that builds, checks, tests and releases a stealth repository
+- the design system a screen is drawn with, and the catalogue that documents it
+- the platform a plugin is written against, with the host, the services and the standard
+  plugins
+- one private repository per product
+
+The toolchain and this documentation already live in repositories of their own. The design
+system's and the platform's code is still in one private repository and moves into `ui` and
+`platform` tree by tree; both repositories exist and receive each tree as it is cut.
 
 ## What a reader here can expect
 

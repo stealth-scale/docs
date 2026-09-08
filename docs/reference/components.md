@@ -91,8 +91,10 @@ the examples.
   carries no `title`, which the path derives, and no `autodocs` tag, because the MDX file is
   the page.
 - The first export is `Playground`. Every other story spreads `example` from the catalogue's
-  authoring kit, which drops it from the sidebar, turns its controls off and pads the canvas.
-  The sidebar carries exactly two entries, Docs and Playground.
+  authoring kit, which turns its controls off and pads the canvas. The kit's indexer keeps
+  every story but the Playground out of the sidebar, because Storybook reads a story file
+  without evaluating it and a tag reached through a spread never arrives. The sidebar carries
+  exactly two entries, Docs and Playground.
 - Fixtures move to `<name>.fixtures.ts` when they crowd out the scenes: more than about sixty
   lines before the first story, or a story file past three hundred lines. The fixtures file
   exports the data and any component a story composes from it; the story file keeps the
@@ -100,7 +102,7 @@ the examples.
 
 ### Fixtures
 
-Every example is a different world. The house domains are payments and billing, healthcare,
+Every example draws a different domain. The house domains are payments and billing, healthcare,
 logistics and freight, CI and developer tooling, HR and people, e-commerce, observability
 and SRE, legal and compliance, education, media, energy and utilities, and the public sector;
 a file rotates through them, one per example.
@@ -133,9 +135,9 @@ fixture and play assertion agree.
 | RTL           | Always                                                                                                     |
 | Localised     | The component has label props or English defaults; Dutch is the house choice                               |
 | Integration   | The component ships a documented pairing; shown live and asserted through the partner                      |
-| Escape hatch  | The component exports parts for recomposition; one story rebuilds it from them                             |
+| Parts         | The component exports parts for recomposition; one story rebuilds it from them                             |
 
-A grid comes from the authoring kit (`Grid`, `StateGrid`, `forcedBy`, `pseudo`), and the
+A grid comes from the authoring kit (`Grid`, `StateGrid`, `forcedBy`), and the
 lists it iterates are derived from the component itself, so a variant added to the recipe
 cannot be missing from the page. A provider that renders no element has no stories; its
 effect is measured in the stories of what it affects, and its page says where.

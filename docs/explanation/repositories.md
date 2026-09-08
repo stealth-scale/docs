@@ -6,30 +6,30 @@ sidebar:
 ---
 
 The code is cut by who may see it and who owns it, never by architectural layer. Four
-motives decided the cut: parts of the system are open source and parts are not; a build
-should not pay for trees it does not touch; different teams own different trees; and the
-toolchain, the design system, the platform and a product each change on a rhythm of their own.
+motives decided the cut: parts of the system are open source and parts are not; a change to
+one tree should not rebuild the others; different teams own different trees; and the
+toolchain, the design system, the platform and a product each change at their own pace.
 
 ```mermaid
 flowchart LR
-  tooling[tooling: builds, checks, tests, releases] --> ui[ui: draws a screen]
-  tooling --> platform[platform: runs a product]
-  ui --> platform
-  platform --> product[a product: plugins, a theme, a deployment]
-  ui --> product
+  tooling[tooling: builds, checks, tests, releases] -->|installed by| ui[ui: draws a screen]
+  tooling -->|installed by| platform[platform: runs a product]
+  ui -->|installed by| platform
+  platform -->|installed by| product[a product: plugins, a theme, a deployment]
+  ui -->|installed by| product
 ```
 
-An arrow reads "is installed by". Nothing points the other way: the toolchain knows no
-component, the design system knows no router, and the platform knows no product.
+Nothing points the other way: the toolchain knows no component, the design system knows no
+router, and the platform knows no product.
 
 ## What each repository holds
 
-| Repository | Visibility | Holds                                                                                                                                        |
-| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tooling`  | public     | `core/`: what every tier stands on, such as validation. `tools/`: the build preset, the `stealth` command, the test helpers.                 |
-| `ui`       | public     | `foundations/`: the theme contract and the hooks. `components/`: the component library and one package per heavy dependency. `catalogue/`.   |
-| `platform` | public     | `contracts/`: what a plugin declares. `web/` and `backend/`: the two SDKs and the host. `services/`, `plugins/`, `catalogue/`.               |
-| a product  | private    | `plugins/`: what the product adds. `theme/`: a recipe. `e2e/`: the suite that drives the host. `deploy/`: the document and the environments. |
+| Repository | Visibility | Holds                                                                                                                                                                                                                                                                                        |
+| ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tooling`  | public     | `core/`: what every tier stands on: validation, the environment, locales, logging, results, the appearance and the theme contract. `themes/`: the base theme. `tools/`: the build preset, the `stealth` command, the test helpers, the fixtures, the workspace reader and the Storybook kit. |
+| `ui`       | public     | `foundations/`: the theme contract and the hooks. `components/`: the component library and one package per heavy dependency. `catalogue/`.                                                                                                                                                   |
+| `platform` | public     | `contracts/`: what a plugin declares. `web/` and `backend/`: the two SDKs and the host. `services/`, `plugins/`, `catalogue/`.                                                                                                                                                               |
+| a product  | private    | `plugins/`: what the product adds. `theme/`: a recipe. `e2e/`: the suite that drives the host. `deploy/`: the document and the environments.                                                                                                                                                 |
 
 The directories under a root are the concepts a reader of that repository already has, in
 the plural. A package is a leaf under one of them, and its name is that path:
@@ -73,5 +73,8 @@ plugin, and another plugin reaches it through that plugin's contract.
 
 Every repository carries the same `docs/` tree, the same workflows calling the toolchain's,
 the same gates, and packages that resolve to their source inside the workspace and to `dist`
-outside it through one export condition, `stealth-source`. A consumer outside never sees the
-condition, and a smoke test installs every published seam from a registry before a release.
+outside it. Each repository names its own export condition for that, `tooling-source` in the
+toolchain. A condition every repository shared would follow a package to the registry: a
+repository that turns it on resolves everything through it, so a published package carrying
+the same key would point at a `src` directory the tarball does not ship. A package a
+repository installs matches no condition of its own and reads what was packed.
