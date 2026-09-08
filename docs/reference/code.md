@@ -51,7 +51,8 @@ Size is a proxy for whether a thing does one thing:
 | lines per story file  | 600                                                       |
 
 Beyond oxlint's own rules, two plugins are load-bearing. `eslint-plugin-jsdoc` holds every
-export to a docblock, as [Docblocks](docblocks.md) describes. `eslint-plugin-perfectionist`
+declaration, exported or not, to a typed multi-line docblock, as [Docblocks](docblocks.md)
+describes. `eslint-plugin-perfectionist`
 sorts imports, exports, object keys, interface members, JSX props and union members
 alphabetically, with a blank line starting a new block, so a diff shows a change rather than
 a reordering; a generator's manifest literal is the one place sorting is off.

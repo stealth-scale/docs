@@ -35,12 +35,13 @@ repository's own packages goes in that repository until its packages are publish
 
 ## Commit messages
 
-[docs/reference/commits.md](docs/reference/commits.md) is the convention. Two subjects from
-the history of the repositories this one documents:
+[docs/reference/commits.md](docs/reference/commits.md) is the convention: a Conventional
+Commits header whose summary is imperative and names what changed, a body that says what
+and why, and a footer for a breaking change or an issue.
 
 ```
-docs: the roadmap reads the tree it describes
-test(tools): a package added to a tree changes no test and writes no section
+docs: add the consumer guide and deploy the catalogue to GitHub Pages
+test(tools): derive the release set and README checks from the workspace tree
 ```
 
 ## Review
