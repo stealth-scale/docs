@@ -13,7 +13,7 @@ than a convention. They are listed here in the order an attacker meets them.
 | the browser's markup | components render markup and never assign it; the linter refuses the properties that parse a string |
 | the browser's API    | the gateway runs only the queries the product shipped, so no caller composes its own                |
 | the session          | the package that owns authentication owns the cookie, and nothing else reads it                     |
-| the gateway          | it checks the token against the identity service's keys and rejects anything else                   |
+| the gateway          | it checks the token against the keys of the issuer the deployment names, and rejects anything else  |
 | a backend            | it checks the token itself rather than trusting the gateway                                         |
 | a record             | the backend that owns it decides, from the permission the entity declared                           |
 | a row                | the database policy returns no row belonging to another organisation                                |
@@ -30,11 +30,11 @@ only the queries the product published, so a browser cannot compose a query nobo
 
 ## The token
 
-The identity service issues a short-lived token. The gateway checks it and passes on what it
-says. Every backend checks it again and decides from the claims rather than from the fact
-that the gateway called. A key an automated caller holds never goes past the identity
-service. It is exchanged there for a token of the shape everything else already checks, so
-there is one way to check a caller and not two.
+Whatever provides identity for the deployment issues a short-lived token. The gateway checks
+it and passes on what it says. Every backend checks it again and decides from the claims
+rather than from the fact that the gateway called. A key an automated caller holds never goes
+past the provider. It is exchanged there for a token of the shape everything else already
+checks, so there is one way to check a caller and not two.
 
 ## Calling a service you already run
 

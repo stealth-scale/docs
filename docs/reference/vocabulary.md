@@ -32,14 +32,14 @@ the writing keeps the word below.
 
 ## Behind the gateway
 
-| Word          | Meaning                                                                                                                                                                                         |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| gateway       | The one GraphQL API a browser calls. It composes one schema from every plugin's part and runs only the queries the product shipped.                                                             |
-| backend       | One process per plugin that has data. It holds the plugin's part of the schema, its rules, its entities, its job handlers and its webhooks.                                                     |
-| core services | What every backend gets from the platform: the database, entities, events, jobs, streams, configuration, identity and telemetry.                                                                |
-| service       | A process that runs once per deployment and that every backend uses. The identity service issues the token. A service your own company runs is also a service, and an entity may read from one. |
-| Connect       | The transport between backends and services, over protobuf. It never reaches a browser.                                                                                                         |
-| token         | What the identity service issues, short-lived. The gateway checks it and passes on the claims, and every backend checks it again for itself.                                                    |
+| Word          | Meaning                                                                                                                                                                                      |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| gateway       | The one GraphQL API a browser calls. It composes one schema from every plugin's part and runs only the queries the product shipped.                                                          |
+| backend       | One process per plugin that has data. It holds the plugin's part of the schema, its rules, its entities, its job handlers and its webhooks.                                                  |
+| core services | What every backend gets from the platform: the database, entities, events, jobs, streams, configuration, identity and telemetry.                                                             |
+| service       | A process that runs once per deployment and that every backend uses, such as the one providing identity. A service your own company runs is also a service, and an entity may read from one. |
+| Connect       | The transport between backends and services, over protobuf. It never reaches a browser.                                                                                                      |
+| token         | What the deployment's identity provider issues, short-lived. The gateway checks it and passes on the claims, and every backend checks it again for itself.                                   |
 
 ## What a plugin declares
 
@@ -55,8 +55,8 @@ the writing keeps the word below.
 | api            | An interface named in a contract that another plugin consumes by reference.                                                                                                                                                  |
 | flag           | A named switch a plugin declares. A deployment document sets its value, and a when rule reads it.                                                                                                                            |
 | permission     | A named right a plugin declares. A when rule checks it, and a backend decides with it.                                                                                                                                       |
-| interface      | A capability the platform names rather than implements: identity, configuration, flags, files, search, notifications, audit.                                                                                                 |
-| default plugin | What the platform ships for an interface. A company replaces one with its own and nothing that used it changes.                                                                                                              |
+| interface      | A capability the platform names rather than implements: identity, storage, events, jobs, configuration, flags, files, search, notifications, audit, words, telemetry.                                                        |
+| implementation | What satisfies an interface. The platform ships one for each, and a company replaces it with its own; nothing that used it changes, because nothing that used it named it.                                                   |
 | SDK            | What no plugin exists without, and nothing more. The web SDK holds the shell, routing, the query layer, the session and the words; the backend SDK holds the process, the database, the outbox, the cache, the keys and rpc. |
 
 ## A product

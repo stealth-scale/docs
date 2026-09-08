@@ -70,8 +70,12 @@ from each product's own documentation.
 
 ## What the platform supplies
 
-- **Sign-in and sessions.** The identity service issues a short-lived token, and the gateway
-  and every backend check it for themselves.
+Each of these is an interface with one implementation shipped behind it. You take the ones you
+do not have and replace the rest.
+
+- **Sign-in, or the one you already run.** The platform states what a verified caller looks
+  like and ships an identity plugin that produces it, with passkeys, organisations and roles.
+  A company with its own provider uses that one instead.
 - **One API for the browser.** A GraphQL gateway answers every request a screen makes, and it
   accepts only the queries the product shipped.
 - **Your own services, where you have them.** A declaration names a gRPC or REST service you
@@ -82,8 +86,9 @@ from each product's own documentation.
   layout for you.
 - **Words.** Every string a person reads is a key, rendered in that person's language and
   writing direction.
-- **Replaceable parts.** Identity, flags, files, search, notifications and the rest are
-  interfaces with a default plugin behind each. You replace any of them with your own.
+- **Storage, events, jobs, flags, files, search, notifications, audit and telemetry.** Each is
+  an interface, and [What you can replace](../architecture/replaceable.md) lists what ships
+  behind it.
 - **Automations.** An administrator composes a trigger, conditions and actions from a screen.
   Every run is recorded and every action leaves an audit record.
 - **Deployment.** The application is built once, and a document per product and environment

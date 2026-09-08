@@ -1,26 +1,28 @@
 ---
 title: Identity and permissions
-description: 'The token the identity service issues, the claims every tier reads from it, and the three places a permission is checked.'
+description: 'The platform does not sign anybody in. It states what a verified caller looks like, ships one way of producing that, and takes yours instead when you have one.'
 sidebar:
   order: 8
 ---
 
-The identity service signs a person in once and issues a short-lived token. The gateway checks
-that token and passes on what it says. Every backend checks it again for itself rather than
-trusting the caller. All three read the same claims, so the browser, the gateway and a backend
-never disagree about what a person may do.
+The platform authenticates nobody. It states what a verified caller looks like, and anything
+that can produce that is an identity provider as far as the rest of the system is concerned.
+A default plugin ships, with passkeys, a second factor, organisations and roles, and a company
+that already runs an identity provider uses that one instead.
 
-## What the token carries
+## What a verified caller looks like
+
+This is the contract, and it is the same whoever issued the token.
 
 ```ts
 interface Claims {
-  /** The person, or the plugin, for a token a backend holds. */
+  /** The person, or the plugin, for a token an automated caller holds. */
   sub: string
   /** When the person last authenticated, in seconds since the epoch. */
   auth_time: number
   /** The active organisation and the person's role in it. */
   org?: { id: string; role: string } | undefined
-  /** The effective permissions for that organisation. */
+  /** The permissions that apply in that organisation. */
   permissions: readonly string[]
   /** The deployment-wide administrator, when the person is one. */
   role?: 'admin' | undefined
@@ -31,21 +33,30 @@ interface Claims {
 }
 ```
 
-`auth_time` is absolute, because a verifier computes freshness against its own clock, and a
-relative claim would be wrong by the token's age at every verifier.
+`auth_time` is absolute, because each service compares it against its own clock and a relative
+claim would be wrong by the token's age everywhere it was read.
 
-## Roles and permissions are different things
+## Bringing your own
 
-A role is what the identity service says about a person: their role in the active
-organisation, and the deployment-wide administrator. A permission is what a plugin means, and
-a plugin declares its own in its contract. An administrator assigns permissions to roles from
-the members page, and the identity service computes the effective set into the token.
+An identity provider is usable here when it can do three things: sign a person in, issue a
+token the gateway and every backend can verify, and carry the claims above. The deployment
+names the issuer, where its keys are published, and the audience. Nothing else in the product
+changes, because nothing else names the provider.
 
-One string is used everywhere. `permissions.write` is the same string in a rule that hides a
-button, in the directive that guards a field, and in the generated procedure that refuses the
-write.
+Where your provider does not carry a claim, the platform states what stops working rather
+than guessing.
+
+| Claim it cannot carry | What stops working                                                      |
+| --------------------- | ----------------------------------------------------------------------- |
+| `org`                 | tenancy: every entity scoped to an organisation refuses to serve a call |
+| `permissions`         | permission rules; the platform then asks your provider per decision     |
+| `auth_time`           | step-up, so a sensitive action cannot ask for a fresh sign-in           |
+| `act`                 | automations and agents, which need a bounded token to run under         |
 
 ## Where a permission is checked
+
+A permission is a string a plugin declares. Who holds it is the identity provider's business.
+Whether a caller may do a thing is decided in three places, and only the last one is security.
 
 | Layer     | Checks                                      | Cannot decide                          |
 | --------- | ------------------------------------------- | -------------------------------------- |
@@ -53,28 +64,35 @@ write.
 | a gateway | whether the caller may reach a field        | whether they may reach this record     |
 | a backend | whether this caller may do this to this row | nothing; this is the answer            |
 
-A question about one record is a query. The browser asks the backend that owns the record,
-and renders the control disabled with the reason until the answer comes back. That is why a
-refused action is shown rather than hidden: a person can see that the action exists and read
-why it is not theirs.
+A question about one record is a query. The browser asks the backend that owns the record and
+renders the control disabled with the reason until the answer arrives. A refused action is
+shown rather than hidden, so a person can see that it exists and read why it is not theirs.
 
-## Freshness, and asking again
+## What the default plugin adds
 
-A sensitive action requires a recent authentication. A screen or a block states how recent,
-the platform compares the token's `auth_time` against its own clock, and the person is asked
-for a passkey in place. The screen stays mounted and whatever they typed stays in it.
+The identity plugin the platform ships is one implementation, and it is a complete one:
+passkeys, a second factor, organisations, roles an administrator defines, a members screen,
+linked accounts, and API keys. A deployment that has none of that gets it by loading the plugin. A
+deployment that has all of it already loads something else.
 
-An expired session is handled the same way. A call that comes back unauthorised is retried
-once after a refresh, and if that fails a dialog opens over the screen. A person never loses a
-half-written form to a redirect.
+## Sessions, and what a person notices
+
+A session is a query the browser keeps current, holding the claims from the token rather than
+anything read from a cookie. That is why the browser, the gateway and a backend never disagree
+about what a person may do.
+
+An expired session is handled where the person is standing. A call that comes back
+unauthorised is retried once after a refresh, and if that fails a dialog opens over the
+screen. The screen stays mounted and whatever was typed stays in it. A sensitive action asks
+for a fresh sign-in in the same way, and the answer to it is a new token rather than a new
+page.
 
 ## Tokens that are not a person
 
-A backend acting on its own holds a key the identity service issued to that plugin, and
-exchanges it for a token whose subject is the plugin. The exchange takes an organisation, a
-subset of the plugin's own permissions, and an actor chain naming what is acting and who
-granted it. Every backend then authorises that token exactly as it authorises a person, and
-the audit record names the automation or the agent rather than the plugin.
+An automated caller holds a key its provider issued and exchanges it for a token whose subject
+is the plugin. The exchange names one organisation, a subset of that plugin's permissions, and
+what the token is acting as. Every backend then authorises it exactly as it authorises a
+person, and the audit record names the automation or the agent rather than the plugin.
 
-[Tenancy and isolation](tenancy.md) says what keeps one organisation's rows away from
-another's. [Agents and tools](agents.md) says what an agent may do with a token of this kind.
+[Tenancy and isolation](tenancy.md) says what keeps one organisation's records away from
+another's. [What you can replace](replaceable.md) puts identity beside every other interface.

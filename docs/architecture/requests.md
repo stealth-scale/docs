@@ -22,7 +22,7 @@ sequenceDiagram
     participant P as Plugin backend
     participant D as Postgres
     B->>G: a persisted document id, with the token
-    G->>G: verifies the token against the identity service's keys
+    G->>G: checks the token against the issuer's published keys
     G->>P: the plugin's part of the query, with the claims
     P->>P: verifies the token again, and reads the claims
     P->>D: sets the tenant, then selects under the row policy
