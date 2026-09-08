@@ -66,6 +66,20 @@ every write and updated on every status change. The roadmap's index is different
 the plan, so its rows are reordered when the plan changes and never its file names. A test
 holds the roadmap's table and graph to the milestones' own frontmatter.
 
+The frontmatter fields are the only links between records, and they run one way:
+
+```mermaid
+flowchart LR
+  milestone[Milestone] -->|depends-on| milestone2[Milestone]
+  milestone -->|rfc| rfc[RFC]
+  rfc -->|produces-adr| adr[ADR]
+  adr -->|rfc| rfc
+  rfc -->|supersedes, superseded-by| rfc2[RFC]
+  adr -->|supersedes, superseded-by| adr2[ADR]
+```
+
+Nothing points at a milestone.
+
 Four rules keep the records honest:
 
 - **The document graph lives in the frontmatter.** `supersedes`, `superseded-by`,

@@ -1,6 +1,6 @@
 ---
 title: Commit messages
-description: The shape of a commit message - the header with its type, scope and imperative summary, the body that says what changed and why, the footers for breaking changes and issues - with the history's subjects rewritten.
+description: 'The shape of a commit message: the header with its type, scope and imperative summary, the body that says what changed and why, and the footers for a breaking change or an issue. Five headers from the history, rewritten.'
 sidebar:
   order: 4
 ---

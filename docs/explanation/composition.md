@@ -6,7 +6,7 @@ sidebar:
 ---
 
 A product is a deployment document, a product plugin and a handful of plugins. Everything
-else belongs to the platform. This page is the shape; the platform's own RFCs carry the
+else belongs to the platform. This page gives the shape; the platform's RFCs hold the
 argument and the interfaces.
 
 ## In the browser
@@ -19,11 +19,24 @@ after, around or instead of what the slot already holds, and the rules under whi
 **where** over the route and **when** over flags, session and permissions. Any block that
 renders can draw slots of its own.
 
-The route decides everything on screen. The shell derives one **context** per navigation, the
-route, the session, the organisation and the **subjects** the screens on the branch declare
-themselves to be about, compiles every rule once, and hands the same context to every block.
-A screen's data is loaded by the router before the screen renders, through one shared query
-client.
+```mermaid
+flowchart TB
+  host[Host] -->|boots| shell[Shell]
+  shell -->|loads by manifest| plugins[Plugins]
+  shell -->|mounts| frame[Frame]
+  plugins -->|declare screens for| routes[One route tree]
+  frame -->|renders the active| layout[Layout: an arrangement plus options]
+  layout -->|draws| slots[Slots]
+  plugins -->|put blocks into, under where and when| slots
+  slots -->|hold| blocks[Blocks]
+  blocks -->|may draw their own| slots
+```
+
+The route decides everything on screen. The shell derives one **context** per navigation,
+the route, the session, the organisation and the **subjects** the screens on the branch
+declare themselves to be about, compiles every rule once, and hands the same context to every
+block. A screen's data is loaded by the router before the screen renders, through one shared
+query client.
 
 A plugin never imports another plugin, and the host never imports a plugin. What a plugin
 exposes to the rest is its **contract**: references to its slots, apis, screens, queries,
@@ -39,10 +52,28 @@ it declared, its job handlers and its webhooks. A backend is built on the platfo
 services, database, entities, events, jobs, streams, configuration, identity, telemetry and
 the rest, and reaches a service or another backend over Connect.
 
-Identity is issued once, by the identity service, as a short-lived token; the gateway
-verifies it, forwards it as claims, and every backend verifies it again, so no hop trusts the
-one before it. Everything a person, a plugin or a vendor hands the platform is declared once
-as a schema and checked at every boundary with that declaration.
+The identity service issues a short-lived token once. The gateway verifies it and forwards
+it as claims, and every backend verifies it again, so no hop trusts the one before it.
+
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant G as GraphQL gateway
+    participant P as Plugin backend
+    participant S as Service
+    Note over B: holds the token the identity service issued
+    B->>G: persisted document, with the token
+    G->>G: verifies the token
+    G->>P: the plugin's part of the query, with the claims
+    P->>P: verifies the token again
+    P->>S: a Connect procedure
+    S-->>P: the reply
+    P-->>G: the plugin's data
+    G-->>B: one composed result
+```
+
+Everything a person, a plugin or a vendor hands the platform is declared once as a schema
+and checked at every boundary with that declaration.
 
 ## What a plugin author writes
 
