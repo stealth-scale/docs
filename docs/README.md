@@ -12,6 +12,7 @@ Start with the question you arrived with.
 | What stealth is, what you write, and what the platform gives you | [What stealth is](explanation/what-stealth-is.md)       |
 | Why the code lives in four repositories, and what each one holds | [The repositories](explanation/repositories.md)         |
 | How a product is put together at run time                        | [How a product is composed](explanation/composition.md) |
+| What a word here means: host, shell, plugin, contract, entity    | [The vocabulary](reference/vocabulary.md)               |
 
 ## I am working in a stealth repository
 
