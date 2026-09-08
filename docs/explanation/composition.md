@@ -76,5 +76,4 @@ that one and accepting the coupling.
 
 ## Where to read the details
 
-[The shape of a product](../architecture/product.md) starts the architecture section, which
-covers each of these in turn.
+The [architecture section](../architecture/README.md) covers each of these in turn.

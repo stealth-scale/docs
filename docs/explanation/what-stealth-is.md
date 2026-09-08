@@ -87,14 +87,13 @@ do not have and replace the rest.
 - **Words.** Every string a person reads is a key, rendered in that person's language and
   writing direction.
 - **Storage, events, jobs, flags, files, search, notifications, audit and telemetry.** Each is
-  an interface, and [What you can replace](../architecture/replaceable.md) lists what ships
-  behind it.
+  an interface with one implementation shipped behind it.
 - **Automations.** An administrator composes a trigger, conditions and actions from a screen.
   Every run is recorded and every action leaves an audit record.
 - **Deployment.** The application is built once, and a document per product and environment
   says what to load.
 
-[The shape of a product](../architecture/product.md) is where the architecture section starts.
+The [architecture section](../architecture/README.md) describes each of these in detail.
 
 ## What stealth is not
 
@@ -128,7 +127,7 @@ Three names carry it, and each is used for exactly one thing:
 ## Read next
 
 - [The repositories](repositories.md) says why the code is split into four repositories.
-- [The shape of a product](../architecture/product.md) starts the architecture section.
+- The [architecture section](../architecture/README.md) describes how the platform works.
 - The reference pages, starting with [Repositories and packages](../reference/packages.md),
   state the rules every repository follows. Where a test enforces a rule, the page says so;
   where nothing checks it yet, the page says that too.

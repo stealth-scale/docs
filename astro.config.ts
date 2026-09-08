@@ -25,7 +25,39 @@ export default defineConfig({
       lastUpdated: true,
       sidebar: [
         { label: 'Understand', items: [{ autogenerate: { directory: 'docs/explanation' } }] },
-        { label: 'Architecture', items: [{ autogenerate: { directory: 'docs/architecture' } }] },
+        {
+          label: 'Architecture',
+          items: [
+            { slug: 'architecture' },
+            { slug: 'architecture/goals' },
+            { slug: 'architecture/constraints' },
+            {
+              label: '3. Context and scope',
+              items: [{ autogenerate: { directory: 'docs/architecture/context' } }],
+            },
+            { slug: 'architecture/strategy' },
+            {
+              label: '5. Building blocks',
+              items: [{ autogenerate: { directory: 'docs/architecture/building-blocks' } }],
+            },
+            {
+              label: '6. Runtime',
+              items: [{ autogenerate: { directory: 'docs/architecture/runtime' } }],
+            },
+            {
+              label: '7. Deployment',
+              items: [{ autogenerate: { directory: 'docs/architecture/deployment' } }],
+            },
+            {
+              label: '8. Crosscutting concepts',
+              items: [{ autogenerate: { directory: 'docs/architecture/concepts' } }],
+            },
+            { slug: 'architecture/decisions' },
+            { slug: 'architecture/quality' },
+            { slug: 'architecture/risks' },
+            { slug: 'architecture/glossary' },
+          ],
+        },
         { label: 'How to', items: [{ autogenerate: { directory: 'docs/how-to' } }] },
         { label: 'Reference', items: [{ autogenerate: { directory: 'docs/reference' } }] },
       ],

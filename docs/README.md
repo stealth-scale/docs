@@ -17,25 +17,18 @@ Start with the question you arrived with.
 
 ## I want to know how it works
 
-| I want to know                                                  | Read                                                            |
-| --------------------------------------------------------------- | --------------------------------------------------------------- |
-| What a product is made of, and what the platform does           | [The shape of a product](architecture/product.md)               |
-| What one entity declaration gives a plugin                      | [Declaring an entity](architecture/entities.md)                 |
-| How a plugin turns a record into something a person uses        | [Building a screen](architecture/screens.md)                    |
-| How a plugin reads from a service my company already runs       | [What a plugin brings](architecture/plugins.md)                 |
-| Which parts I can swap for my own, and which I cannot           | [What you can replace](architecture/replaceable.md)             |
-| What to do when a generated procedure is not what we do         | [Taking over what the platform wrote](architecture/changing.md) |
-| How a screen reaches a row                                      | [The request path](architecture/requests.md)                    |
-| What the token carries, and who checks a permission             | [Identity and permissions](architecture/identity.md)            |
-| What keeps one organisation's rows from another's               | [Tenancy and isolation](architecture/tenancy.md)                |
-| How a string reaches a person in their own language             | [Words, locale and direction](architecture/words.md)            |
-| How a theme is written, and what decides how a product is drawn | [Appearance and theming](architecture/appearance.md)            |
-| How a change becomes an event, a job, or an automation          | [Events, jobs and automations](architecture/events.md)          |
-| What an agent may do, and what stops it                         | [Agents and tools](architecture/agents.md)                      |
-| What happens when a plugin and the platform are different ages  | [Versions and upgrades](architecture/versions.md)               |
-| What is deployed, and what still needs a build                  | [Deployment topology](architecture/deployment.md)               |
-| What stops an attacker at each boundary                         | [Security posture](architecture/security.md)                    |
-| What every screen gets, and what enforces it                    | [Guarantees and gates](architecture/guarantees.md)              |
+The architecture section is a set of templates. The headings are set and the content is not
+written yet.
+
+| I want to know                                            | Read                                                     |
+| --------------------------------------------------------- | -------------------------------------------------------- |
+| What the whole section holds, and in what order           | [Architecture](architecture/README.md)                   |
+| What the platform is for, and which qualities matter most | [Goals](architecture/goals.md)                           |
+| Who uses a product, and what it talks to                  | [System context](architecture/context/system-context.md) |
+| What runs, and how the parts fit together                 | [Containers](architecture/building-blocks/containers.md) |
+| What happens step by step in one scenario                 | [Starting a product](architecture/runtime/starting.md)   |
+| What is deployed where                                    | [Topology](architecture/deployment/topology.md)          |
+| How one concern works across several parts                | [Identity](architecture/concepts/identity.md)            |
 
 ## I am working in a stealth repository
 
