@@ -15,18 +15,18 @@ is stated in its README, never in the tree.
 
 Every repository carries the same files beside its trees:
 
-| File or directory    | Holds                                                                               |
-| -------------------- | ----------------------------------------------------------------------------------- |
-| `README.md`          | What the repository is, its layout, and its commands                                |
-| `CONTRIBUTING.md`    | From a clean clone to a merged change                                               |
-| `LICENSE`            | MIT, held by Stealth Scale B.V.                                                     |
-| `SECURITY.md`        | Where a vulnerability is reported                                                   |
-| `docs/`              | The tree described in [Documentation](documentation.md)                             |
-| `.github/workflows/` | Callers of the toolchain's reusable workflows                                       |
-| `vite.config.ts`     | The one configuration: the toolchain's preset, with what is true of this repository |
-| `tsconfig.base.json` | The compiler options every package extends                                          |
-| `bunfig.toml`        | The install policy                                                                  |
-| `.changeset/`        | The pending release notes, in a repository that publishes                           |
+| File or directory    | Holds                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------------------- |
+| `README.md`          | What the repository is, its layout, and its commands                                              |
+| `CONTRIBUTING.md`    | From a clean clone to a merged change                                                             |
+| `LICENSE`            | MIT, held by Stealth Scale B.V.                                                                   |
+| `SECURITY.md`        | Where a vulnerability is reported                                                                 |
+| `docs/`              | The tree described in [Documentation](documentation.md)                                           |
+| `.github/workflows/` | Callers of the toolchain's reusable workflows                                                     |
+| `vite.config.ts`     | The one configuration: the toolchain's preset, with what is true of this repository               |
+| `tsconfig.json`      | Extends the toolchain's `tsconfig/base.json`, as every package does with only its `include` added |
+| `bunfig.toml`        | The install policy                                                                                |
+| `.changeset/`        | The pending release notes, in a repository that publishes                                         |
 
 Only the root carries a `vite.config.ts`. A package adds one only for what is true of that
 package alone, such as several entries or a dev server's port.

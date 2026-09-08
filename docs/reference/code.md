@@ -128,12 +128,12 @@ one locale, amounts with a currency, identifiers that look like identifiers; nev
 `vp run ci` is one task, and every repository's workflow calls the toolchain's reusable one:
 
 1. `bun install --frozen-lockfile` and `bun audit`: the tree is the one that was reviewed.
-2. `vp run -r codegen`: what the build reads is written first.
-3. `vp run -r lint` and, where there are protobuf modules, `vp run -r breaking` against what
-   `main` serves.
-4. `vp run -r build`: every package, in dependency order.
-5. `vp check` and `vp test`.
-6. The catalogue build, then every e2e suite against the built artifact.
+2. `vp run -r codegen`, in a repository that generates: what the build reads is written
+   first, and a protobuf module is held to `buf breaking` against what `main` serves.
+3. `vp run -r build`: every package packs, in dependency order, and its declarations resolve.
+4. `vp check` and `vp test`: the format, the lint findings and the type errors in one pass,
+   then every specification at the coverage floor.
+5. The catalogue build, then every e2e suite against the built artifact, where they exist.
 
 Every step fails closed. A landing is green at every step, which is what the gates say, not a
 box in a list.
