@@ -25,6 +25,7 @@ export default defineConfig({
       lastUpdated: true,
       sidebar: [
         { label: 'Understand', items: [{ autogenerate: { directory: 'docs/explanation' } }] },
+        { label: 'Architecture', items: [{ autogenerate: { directory: 'docs/architecture' } }] },
         { label: 'How to', items: [{ autogenerate: { directory: 'docs/how-to' } }] },
         { label: 'Reference', items: [{ autogenerate: { directory: 'docs/reference' } }] },
       ],

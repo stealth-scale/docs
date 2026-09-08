@@ -14,6 +14,7 @@ there. A directory exists only when there is something to put in it.
 ```
 docs/
 ├── README.md        the router: which page answers which question
+├── architecture/    how one part of the platform works
 ├── explanation/     why it works this way
 ├── how-to/          the steps for one goal
 ├── reference/       what a field, a rule, a flag means; complete and dry
@@ -31,6 +32,7 @@ docs/
 | "I have a goal. Give me the steps"                                | `how-to/`                           |
 | "What does this field, flag or rule mean?"                        | `reference/`                        |
 | "Why does this concept exist?"                                    | `explanation/`                      |
+| "How does this part of the platform work?"                        | `architecture/`                     |
 | "I am new. Teach me by doing"                                     | `tutorials/`                        |
 | "What is this, and should I use it?"                              | `README.md` at the root             |
 | "How do I contribute?"                                            | `CONTRIBUTING.md`                   |
