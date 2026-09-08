@@ -40,12 +40,12 @@ a name says what a thing is called, and a docblock says what it guarantees.
  * The body, when a caller needs more than the summary: why the thing exists,
  * when to use it over its sibling, what it costs, what it never does.
  *
- * @template {Schema} S - The schema, so the result is typed as its output.
- * @param {S} schema - The schema the value must satisfy, built with this package's builders.
- * @param {unknown} value - Unchecked input from a boundary: a request body, a parsed
- *     manifest, an environment variable.
- * @returns {Infer<S>} The value typed as the schema's output; a transform in the schema has run.
- * @throws {InvalidValueError} When the value fails the schema; `issues` lists every field that did.
+ * @template {Schema} S - The schema type.
+ * @param {S} schema - The schema to check the value against.
+ * @param {unknown} value - The value to check. It comes from a boundary: a request body, a
+ *     parsed manifest, an environment variable.
+ * @returns {Infer<S>} The parsed value. Every transform in the schema has run.
+ * @throws {InvalidValueError} When the schema refuses the value. `issues` lists every refusal.
  */
 export function parse<S extends Schema>(schema: S, value: unknown): Infer<S> {
 ```
@@ -70,21 +70,25 @@ export function parse<S extends Schema>(schema: S, value: unknown): Infer<S> {
 ## The summary sentence
 
 One sentence, the first line, complete on its own: it is what an index, a hover and the
-catalogue show first. It describes and never announces: "This function parses" and "Used to
-parse" say nothing that "Parses" does not. It never repeats the name: `/** The parse
-function. */` fails lint and helps nobody.
+catalogue show first. It has a subject and an active verb, in the third person, as if "This
+function" or "This field" preceded it: `Parses`, `Returns`, `Lists`, `Names`, `Carries`,
+`Builds`, `Describes`. A noun phrase ("Every refusal, in schema order."), a `Whether` opener,
+a participle hanging off the end ("…, narrowing it to the input type") and a chain of
+appositives are not sentences a reader acts on, and they are rewritten. It never announces:
+"This function parses" and "Used to parse" say nothing that "Parses" does not. It never
+repeats the name: `/** The parse function. */` fails lint and helps nobody.
 
-| Kind                           | Opens with                                                    | Example                                                                     |
-| ------------------------------ | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| A function that does something | A verb in the third person, as if "This function" preceded it | Rewrites a relative link into the path of the page the site builds from it. |
-| A predicate                    | `Whether`                                                     | Whether a directory is one a walk reads code from.                          |
-| A value, a constant, a field   | A noun phrase                                                 | The heading of the install section, which is also how it is found again.    |
-| An interface, an object type   | What one instance is                                          | One refusal of one field, as a form shows it and a log records it.          |
-| A type alias for a union       | What the alternatives have in common                          | What a walk reports: a missing spec, or a spec without a source.            |
-| A class                        | What an instance is, and what makes one                       | An error thrown by `parse` when a value fails its schema.                   |
-| A component                    | What it draws and what for                                    | A button that submits, cancels or opens, with a size and a tone.            |
-| A hook                         | What it returns and what makes it change                      | Whether a media query matches, updated as the viewport changes.             |
-| A module                       | What the file holds, as a noun phrase after `@fileoverview`   | `@fileoverview` The guards a workspace is held to, one function per rule.   |
+| Kind                           | Opens with                                           | Example                                                                                    |
+| ------------------------------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| A function that does something | The verb for what it does                            | Rewrites a relative link into the path of the page the site builds from it.                |
+| A predicate                    | `Returns \`true\` when`                              | Returns `true` when a walk reads code from the directory.                                  |
+| A value, a constant, a field   | `Holds`, `Names`, `Lists`, `Carries`, `Points at`    | Names the heading of the install section, which is also how the rewrite finds it again.    |
+| An interface, an object type   | `Describes`                                          | Describes one refusal of one field, in the shape a form renders and a log records.         |
+| A type alias                   | `Names`                                              | Names what a walk reports: a missing spec, or a spec without a source.                     |
+| A class                        | `Reports`, `Represents`, `Holds`, with who makes one | Reports a value that failed its schema. `parse` throws it.                                 |
+| A component                    | `Draws`                                              | Draws a button that submits, cancels or opens, with a size and a tone.                     |
+| A hook                         | `Returns`, and what makes it change                  | Returns `true` while the media query matches, and re-renders the caller when that changes. |
+| A module                       | `Holds`, after `@fileoverview`                       | `@fileoverview` Holds the guards a workspace is held to, one function per rule.            |
 
 ## The body
 
@@ -132,28 +136,32 @@ handbook is explicit that "only documentation tags are supported in TypeScript f
 
 ### `@param`
 
-The sentence states the contract of that argument: its shape beyond the type, where it
-usually comes from, what it must already satisfy, and what a default is when the parameter
-is optional. The name is never repeated, and "the value", "the input" or "what to parse" is
-not a contract.
+The description states the contract of that argument: its shape beyond the type, where it
+comes from, what it must already satisfy, and what the default is when the parameter is
+optional. It is one plain clause, or short full sentences: "The value to check. It comes
+from a boundary: a request body, a parsed manifest." Never a noun with qualifiers hung off
+it by commas ("The refusals `fieldIssuesOf` wrote, in schema order"): when the origin or the
+order matters, it gets a sentence of its own. The name is never repeated, and "the value",
+"the input" or "what to parse" is not a contract.
 
-| Form                                         | Written as                                                                                                      |
-| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| A required parameter                         | `@param {string} path - The file to read, relative to the workspace.`                                           |
-| An optional parameter, or one with a default | `@param {string} [root] - Where to start, relative to the workspace or absolute. Default: the whole workspace.` |
-| A rest parameter                             | `@param {...string} names - The package names, in publish order.`                                               |
-| An options object                            | ``@param {DeriveOptions} options - What to derive; every member is documented on `DeriveOptions`.``             |
-| A destructured object                        | One `@param` for the object, typed as its interface; the members are documented on the interface                |
-| A callback                                   | `@param {(issue: FieldIssue) => string} translate - Turns a code into the words the person reads.`              |
+| Form                                         | Written as                                                                                                                          |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| A required parameter                         | `@param {string} path - The file to read. A relative path resolves against the workspace.`                                          |
+| An optional parameter, or one with a default | `@param {string} [root] - The directory to start in. A relative path resolves against the workspace. Default: the whole workspace.` |
+| A rest parameter                             | `@param {...string} names - The package names in publish order.`                                                                    |
+| An options object                            | ``@param {DeriveOptions} options - The derivation options. `DeriveOptions` documents every member.``                                |
+| A destructured object                        | One `@param` for the object. Its type is the interface, and the interface documents the members.                                    |
+| A callback                                   | `@param {(issue: FieldIssue) => string} translate - Turns a code into the words the person reads.`                                  |
 
 Never `[name=default]`: the default is stated in the sentence, once.
 
-| Do not write                                         | Write                                                                                                           |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `@param {string} name - The name.`                   | `@param {string} name - The package name as published, with its scope.`                                         |
-| `@param {unknown} value - What the value should be.` | `@param {unknown} value - Unchecked input from a boundary: a request body, a parsed manifest.`                  |
-| `@param root - Where to start.`                      | `@param {string} [root] - Where to start, relative to the workspace or absolute. Default: the whole workspace.` |
-| `@param {Object} options - The options.`             | ``@param {DeriveOptions} options - What to derive; every member is documented on `DeriveOptions`.``             |
+| Do not write                                                                                     | Write                                                                                                                               |
+| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `@param {string} name - The name.`                                                               | `@param {string} name - The published package name, including its scope.`                                                           |
+| `@param {unknown} value - What the value should be.`                                             | `@param {unknown} value - The value to check. It comes from a boundary: a request body, a parsed manifest.`                         |
+| `@param root - Where to start.`                                                                  | `@param {string} [root] - The directory to start in. A relative path resolves against the workspace. Default: the whole workspace.` |
+| ``@param {readonly FieldIssue[]} issues - The refusals `fieldIssuesOf` wrote, in schema order.`` | `@param {readonly FieldIssue[]} issues - The issues the schema reported.`                                                           |
+| `@param {Object} options - The options.`                                                         | ``@param {DeriveOptions} options - The derivation options. `DeriveOptions` documents every member.``                                |
 
 ### `@returns`
 
@@ -162,12 +170,12 @@ of a list, the meaning of an empty list, when it is `undefined`. A promise says 
 resolves to. A predicate says which case is `true`. A function that returns nothing carries
 no `@returns`, and a `@returns` on one fails lint.
 
-| Do not write                                        | Write                                                                                                        |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `@returns {Infer<S>} The result.`                   | `@returns {Infer<S>} The value typed as the schema's output; a transform in the schema has run.`             |
-| `@returns {Pairing} Both lists.`                    | ``@returns {Pairing} Both lists, sorted, relative to `root`; each is empty when nothing is wanting.``        |
-| `@returns {FieldIssue \| null} The issue, or null.` | ``@returns {FieldIssue \| undefined} The first issue on that path, or `undefined` when every field passed.`` |
-| `@returns {Promise<void>} A promise.`               | `@returns {Promise<void>} Resolves when every page is written; rejects with the first write error.`          |
+| Do not write                                        | Write                                                                                                     |
+| --------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `@returns {Infer<S>} The result.`                   | `@returns {Infer<S>} The parsed value. Every transform in the schema has run.`                            |
+| `@returns {Pairing} Both lists.`                    | `@returns {Pairing} Both lists, sorted. An empty list means nothing is wanting.`                          |
+| `@returns {FieldIssue \| null} The issue, or null.` | ``@returns {FieldIssue \| undefined} The first issue on that path. `undefined` when every field passed.`` |
+| `@returns {Promise<void>} A promise.`               | `@returns {Promise<void>} Resolves when every page is written. Rejects with the first write error.`       |
 
 ### `@throws`
 
@@ -184,7 +192,7 @@ and rethrows as its own class does.
 
 One line per type parameter, before the `@param` lines, with the constraint in braces where
 the signature has one, and a sentence saying what the parameter stands for:
-`@template {Schema} S - The schema, so the result is typed as its output.`
+`@template {Schema} S - The schema type.`
 
 ### `@example`
 
@@ -212,9 +220,9 @@ A module with more than one thing in it:
 
 ```ts
 /**
- * @fileoverview The guards a workspace is held to: one exported function per rule, each a
- * pure function over the workspace root that returns what it found wanting, and each with
- * a spec beside it.
+ * @fileoverview Holds the guards a workspace is held to: one exported function per rule.
+ * Each is a pure function over the workspace root that returns what it found wanting, and
+ * each has a spec beside it.
  */
 ```
 
@@ -222,8 +230,8 @@ A constant:
 
 ```ts
 /**
- * The heading of the install section, which is also how the section is found again when
- * it is rewritten.
+ * Names the heading of the install section, which is also how the rewrite finds the
+ * section again.
  */
 const HEADING = '## Install'
 ```
@@ -233,10 +241,11 @@ gets the same treatment:
 
 ```ts
 /**
- * Whether a date exists on the calendar, which the ISO pattern alone does not check.
+ * Returns `true` when the calendar has the day the string names, which the ISO pattern alone
+ * does not check.
  *
- * @param {string} value - An ISO 8601 date or timestamp that has already matched the format.
- * @returns {boolean} `true` for a day the month has; `false` for `2026-02-30` or `2025-04-31`.
+ * @param {string} value - The date or timestamp to check. It must already match the ISO format.
+ * @returns {boolean} `true` for a day the month has. `false` for `2026-02-30` or `2025-04-31`.
  */
 function existsOnTheCalendar(value: string): boolean {
 ```
@@ -245,15 +254,14 @@ A function with an optional parameter, reporting rather than throwing:
 
 ```ts
 /**
- * Every source file without a spec beside it, and every spec without a source.
+ * Lists every source file without a spec beside it, and every spec without a source.
  *
- * The rule is one spec per source, named after it and next to it. The exceptions
- * are the kinds and the paths `isExempt` names.
+ * The rule is one spec per source, named after it and next to it. `isExempt` names the
+ * exceptions: the kinds and the paths.
  *
- * @param {string} [root] - Where to start: a path relative to the workspace, or an
- *     absolute one. Default: the whole workspace.
- * @returns {Pairing} Both lists, sorted, relative to `root`; each is empty when nothing is
- *     wanting.
+ * @param {string} [root] - The directory to start in. A relative path resolves against the
+ *     workspace. Default: the whole workspace.
+ * @returns {Pairing} Both lists, sorted. An empty list means nothing is wanting.
  */
 export function pairing(root = ''): Pairing {
 ```
@@ -262,10 +270,11 @@ An arrow function bound to a name is documented on the binding:
 
 ```ts
 /**
- * Whether a link points inside the site: a path from the root, with no scheme and no host.
+ * Returns `true` when the link points inside the site: a path from the root, with no scheme
+ * and no host.
  *
- * @param {string} href - The link as written in the built page.
- * @returns {boolean} `true` for `/reference/code/`; `false` for `https://…` and for `#top`.
+ * @param {string} href - The link from the built page.
+ * @returns {boolean} `true` for `/reference/code/`. `false` for `https://…` and for `#top`.
  */
 const isInternal = (href: string): boolean => href.startsWith('/')
 ```
@@ -275,28 +284,28 @@ sentence states the contract, in the multi-line form like every other:
 
 ```ts
 /**
- * One refusal of one field, as a form shows it and a log records it.
+ * Describes one refusal of one field, in the shape a form renders and a log records.
  */
 export interface FieldIssue {
   /**
-   * The rule that refused, as valibot names it: `min_length`, `calendar_day`. A catalogue
-   * translates it.
+   * Names the rule that refused. The code is valibot's name for the rule: `min_length`,
+   * `calendar_day`. A catalogue translates it.
    */
   code: string
   /**
-   * The rule's scalars, for the translation: `expected`, `received`, `requirement`.
+   * Carries the rule's scalars for the translation: `expected`, `received`, `requirement`.
    */
   params?: Readonly<Record<string, boolean | number | string>>
   /**
-   * Dotted path from the root, empty for the root itself.
+   * Points at the field with a dotted path from the root. The root itself has an empty path.
    */
   path: string
   /**
-   * The plugin whose schema refused, when the schema was not the platform's own.
+   * Names the plugin whose schema refused, when the schema was not the platform's own.
    */
   plugin?: string
   /**
-   * The rule's own English text, for a log; never shown to a person.
+   * Repeats the rule's own English text for a log. A person never sees it.
    */
   reason: string
 }
@@ -306,28 +315,28 @@ A type alias for a union, with each alternative's members documented:
 
 ```ts
 /**
- * What `safeParse` gives back: the value, or every issue with it.
+ * Reports what `safeParse` found: the value, or every issue with it.
  *
- * @template Value - The schema's output type.
+ * @template Value - The type the schema parses to.
  */
 export type Parsed<Value> =
   | {
       /**
-       * Every refusal, in schema order.
+       * Lists every refusal in the order the schema reported them.
        */
       issues: FieldIssue[]
       /**
-       * Marks the refusal; a caller narrows on it.
+       * Marks the refusal, so a caller narrows on it.
        */
       ok: false
     }
   | {
       /**
-       * Marks the success; a caller narrows on it.
+       * Marks the success, so a caller narrows on it.
        */
       ok: true
       /**
-       * The value, typed as the schema's output; a transform has run.
+       * Carries the value typed as the schema's output. Every transform has run.
        */
       value: Value
     }
@@ -340,38 +349,43 @@ A class, with its constructor's parameter properties, a field, a method and a ge
 
 ```ts
 /**
- * An error thrown by `parse` when a value fails its schema. `issues` is what a form
- * renders; `message` is the summary a log prints.
+ * Reports a value that failed its schema. `parse` throws it; a form renders `issues`; a log
+ * prints `message`.
  */
 export class InvalidValueError extends Error {
   /**
-   * How many issues a summary names before it says "and n more".
+   * Caps how many issues a summary names before it says "and n more".
    */
   static readonly SUMMARY_LIMIT = 3
 
   /**
-   * @param {readonly FieldIssue[]} issues - Every refusal, in schema order, as `fieldIssuesOf` writes them.
-   * @param {string} summary - One line naming the failing paths, from `summarize`.
+   * Lists every refusal in the order the schema reported them.
    */
-  constructor(
-    readonly issues: readonly FieldIssue[],
-    summary: string,
-  ) {
+  readonly issues: readonly FieldIssue[]
+
+  /**
+   * Creates the error `parse` throws for one refused value.
+   *
+   * @param {readonly FieldIssue[]} issues - The issues the schema reported.
+   * @param {string} summary - One line that names every failing path.
+   */
+  constructor(issues: readonly FieldIssue[], summary: string) {
     super(summary)
     this.name = 'InvalidValueError'
+    this.issues = issues
   }
 
   /**
-   * The dotted paths that failed, without duplicates, in schema order.
+   * Lists the dotted paths that failed. Each path appears once, in the schema's order.
    */
   get paths(): string[] {
     return [...new Set(this.issues.map((issue) => issue.path))]
   }
 
   /**
-   * Whether a given field is among the refusals.
+   * Returns `true` when the field is among the refusals.
    *
-   * @param {string} path - A dotted path as `FieldIssue.path` writes it; empty for the root.
+   * @param {string} path - The dotted path of the field. The root's path is empty.
    * @returns {boolean} `true` when at least one issue sits on that path.
    */
   refuses(path: string): boolean {
@@ -384,12 +398,12 @@ A React component, with its props interface documented member by member:
 
 ```tsx
 /**
- * The props of `Button`.
+ * Describes the props of `Button`.
  */
 export interface ButtonProps extends ButtonPrimitive.Props {
   /**
-   * Height and padding. The four `icon*` sizes are square and render no text, so they
-   * carry no accessible name until `aria-label` gives them one.
+   * Sets the height and the padding. The four `icon*` sizes are square and render no text,
+   * so they carry no accessible name until `aria-label` gives them one.
    *
    * @category Appearance
    * @default default
@@ -398,11 +412,12 @@ export interface ButtonProps extends ButtonPrimitive.Props {
 }
 
 /**
- * A button that submits, cancels or opens, with a size and a tone. Renders a `<button>`
- * unless `render` names another element, and keeps the tone's contrast in both modes.
+ * Draws a button that submits, cancels or opens, with a size and a tone. It renders a
+ * `<button>` unless `render` names another element, and keeps the tone's contrast in both
+ * modes.
  *
- * @param {ButtonProps} props - Every member is documented on `ButtonProps`.
- * @returns {JSX.Element} The button, with the recipe's classes merged before `className`.
+ * @param {ButtonProps} props - The props. `ButtonProps` documents every member.
+ * @returns {JSX.Element} The button element. The recipe's classes come before `className`.
  */
 export function Button({ size = 'default', ...props }: ButtonProps): JSX.Element {
 ```
@@ -411,13 +426,13 @@ A hook:
 
 ```ts
 /**
- * Whether a media query matches, updated as the viewport changes.
+ * Returns `true` while the media query matches, and re-renders the caller when that changes.
  *
- * Reads `window.matchMedia` once per query and subscribes to it; on a server it is `false`
- * until the first render in a browser.
+ * Reads `window.matchMedia` once per query and subscribes to it. On a server it returns
+ * `false` until the first render in a browser.
  *
- * @param {string} query - A media query as CSS writes it: `(prefers-color-scheme: dark)`.
- * @returns {boolean} `true` while the query matches; re-renders the caller when that changes.
+ * @param {string} query - The media query in CSS syntax: `(prefers-color-scheme: dark)`.
+ * @returns {boolean} `true` while the query matches. The hook re-renders the caller when that changes.
  */
 export function useMediaQuery(query: string): boolean {
 ```

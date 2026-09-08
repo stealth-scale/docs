@@ -87,8 +87,10 @@ that supersedes it, and mark both ends.
 
 Plain English, as to a colleague who knows the area and is short on time.
 
-- Say who does what. Every sentence has a subject that exists: a user, a file, a command, a
-  caller. Not "the decision", "the capability", "adoption".
+- Say who does what. Every sentence has a subject that exists, a user, a file, a command, a
+  caller, and an active verb. Not "the decision", "the capability", "adoption", and not a
+  noun phrase standing in for a sentence: "Lists every refusal in the order the schema
+  reported them", not "Every refusal, in schema order".
 - Give instructions and checkable statements, not properties. "Returns `ErrNotFound` instead
   of panicking", not "handles errors gracefully". A number, not an adjective.
 - No metaphors: nothing lands, fires, surfaces, unlocks or graduates. No invented terms: use

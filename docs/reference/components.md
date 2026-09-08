@@ -26,8 +26,8 @@ interface, even an inherited one, because the extractor does not follow `extends
 ```ts
 export interface ButtonProps extends ButtonPrimitive.Props {
   /**
-   * Height and padding. The four `icon*` sizes are square and render no text, so
-   * they carry no accessible name until `aria-label` gives them one.
+   * Sets the height and the padding. The four `icon*` sizes are square and render no text,
+   * so they carry no accessible name until `aria-label` gives them one.
    *
    * @category Appearance
    * @default default
