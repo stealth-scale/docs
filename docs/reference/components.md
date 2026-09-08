@@ -32,7 +32,7 @@ export interface ButtonProps extends ButtonPrimitive.Props {
    * @category Appearance
    * @default default
    */
-  size?: ButtonSize | undefined;
+  size?: ButtonSize | undefined
 }
 ```
 

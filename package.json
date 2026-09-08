@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "astro build",
-    "check": "astro sync && tsc --noEmit && oxfmt --check",
+    "check": "astro sync && vp check && tsc --noEmit",
     "dev": "astro dev",
-    "fmt": "oxfmt",
+    "fmt": "vp fmt",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "@types/node": "^24",
-    "oxfmt": "^0.66.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vite-plus": "0.3.0"
   },
   "devEngines": {
     "packageManager": {

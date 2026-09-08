@@ -13,6 +13,6 @@
     "noUnusedParameters": true,
     "verbatimModuleSyntax": true
   },
-  "include": [".astro/types.d.ts", "astro.config.ts", "src/**/*"],
+  "include": [".astro/types.d.ts", "astro.config.ts", "vite.config.ts", "src/**/*"],
   "exclude": ["dist"]
 }

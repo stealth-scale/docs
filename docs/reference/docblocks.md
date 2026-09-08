@@ -225,7 +225,7 @@ A constant:
  * The heading of the install section, which is also how the section is found again when
  * it is rewritten.
  */
-const HEADING = "## Install";
+const HEADING = '## Install'
 ```
 
 A function, generic and throwing, is the form shown above. A predicate that is not exported
@@ -267,7 +267,7 @@ An arrow function bound to a name is documented on the binding:
  * @param {string} href - The link as written in the built page.
  * @returns {boolean} `true` for `/reference/code/`; `false` for `https://…` and for `#top`.
  */
-const isInternal = (href: string): boolean => href.startsWith("/");
+const isInternal = (href: string): boolean => href.startsWith('/')
 ```
 
 An interface, with every member documented; a member's docblock is one sentence when one
@@ -282,23 +282,23 @@ export interface FieldIssue {
    * The rule that refused, as valibot names it: `min_length`, `calendar_day`. A catalogue
    * translates it.
    */
-  code: string;
+  code: string
   /**
    * The rule's scalars, for the translation: `expected`, `received`, `requirement`.
    */
-  params?: Readonly<Record<string, boolean | number | string>>;
+  params?: Readonly<Record<string, boolean | number | string>>
   /**
    * Dotted path from the root, empty for the root itself.
    */
-  path: string;
+  path: string
   /**
    * The plugin whose schema refused, when the schema was not the platform's own.
    */
-  plugin?: string;
+  plugin?: string
   /**
    * The rule's own English text, for a log; never shown to a person.
    */
-  reason: string;
+  reason: string
 }
 ```
 
@@ -315,22 +315,22 @@ export type Parsed<Value> =
       /**
        * Every refusal, in schema order.
        */
-      issues: FieldIssue[];
+      issues: FieldIssue[]
       /**
        * Marks the refusal; a caller narrows on it.
        */
-      ok: false;
+      ok: false
     }
   | {
       /**
        * Marks the success; a caller narrows on it.
        */
-      ok: true;
+      ok: true
       /**
        * The value, typed as the schema's output; a transform has run.
        */
-      value: Value;
-    };
+      value: Value
+    }
 ```
 
 There are no enums: `erasableSyntaxOnly` is on, so a fixed set is a union of literals on a
@@ -347,7 +347,7 @@ export class InvalidValueError extends Error {
   /**
    * How many issues a summary names before it says "and n more".
    */
-  static readonly SUMMARY_LIMIT = 3;
+  static readonly SUMMARY_LIMIT = 3
 
   /**
    * @param {readonly FieldIssue[]} issues - Every refusal, in schema order, as `fieldIssuesOf` writes them.
@@ -357,15 +357,15 @@ export class InvalidValueError extends Error {
     readonly issues: readonly FieldIssue[],
     summary: string,
   ) {
-    super(summary);
-    this.name = "InvalidValueError";
+    super(summary)
+    this.name = 'InvalidValueError'
   }
 
   /**
    * The dotted paths that failed, without duplicates, in schema order.
    */
   get paths(): string[] {
-    return [...new Set(this.issues.map((issue) => issue.path))];
+    return [...new Set(this.issues.map((issue) => issue.path))]
   }
 
   /**
@@ -375,7 +375,7 @@ export class InvalidValueError extends Error {
    * @returns {boolean} `true` when at least one issue sits on that path.
    */
   refuses(path: string): boolean {
-    return this.issues.some((issue) => issue.path === path);
+    return this.issues.some((issue) => issue.path === path)
   }
 }
 ```
