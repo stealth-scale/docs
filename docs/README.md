@@ -1,0 +1,38 @@
+---
+title: Documentation
+description: Where to look, by the question you arrived with.
+---
+
+Start with the question you arrived with.
+
+## I want to understand the system
+
+| I want to know                                                   | Read                                                    |
+| ---------------------------------------------------------------- | ------------------------------------------------------- |
+| What stealth is, and what Stealth Scale publishes                | [What stealth is](explanation/what-stealth-is.md)       |
+| Why the code lives in four repositories, and what each one holds | [The repositories](explanation/repositories.md)         |
+| How a product is put together at run time                        | [How a product is composed](explanation/composition.md) |
+
+## I am working in a stealth repository
+
+| I want to know                                                   | Read                                               |
+| ---------------------------------------------------------------- | -------------------------------------------------- |
+| How a repository is laid out, and how a package is named         | [Repositories and packages](reference/packages.md) |
+| What the gates enforce: formatting, lint, types, tests, releases | [Code standards](reference/code.md)                |
+| What a docblock says, and on what                                | [Docblocks](reference/docblocks.md)                |
+| How a commit message is written                                  | [Commit messages](reference/commits.md)            |
+| Where a document goes, and how it is written                     | [Documentation](reference/documentation.md)        |
+| The four files of a component, and what each holds               | [Documenting a component](reference/components.md) |
+| How a story file is written                                      | [Stories](reference/stories.md)                    |
+| How to build, check and land a change to this repository         | [Contributing](../CONTRIBUTING.md)                 |
+
+## Where things go
+
+A page in `reference/` describes and does not instruct: what a rule is, what a field means,
+what a tool guarantees. A page in `explanation/` says why the system is shaped the way it is
+and sends the rules elsewhere. A page in `how-to/` gives the steps for one goal, and there is
+none here yet: the first arrives with the first published package.
+
+Design proposals, decisions and the roadmap are numbered records under `rfc/`, `adr/` and
+`roadmap/`. Until a repository is cut out of the monorepo, its records stay in that
+repository; this one holds none yet.

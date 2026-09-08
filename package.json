@@ -1,0 +1,38 @@
+{
+  "name": "@stealthscale/docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Conventions, design records and consumer documentation for every stealth-scale repository, and the site built from them.",
+  "type": "module",
+  "scripts": {
+    "build": "astro build",
+    "check": "astro sync && tsc --noEmit && oxfmt --check",
+    "dev": "astro dev",
+    "fmt": "oxfmt",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.0",
+    "@astrojs/starlight": "^0.42.0",
+    "astro": "^7.3.1",
+    "mermaid-isomorphic": "^3.1.0",
+    "playwright": "^1.63.0",
+    "sharp": "^0.35.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "oxfmt": "^0.66.0",
+    "typescript": "^7.0.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "version": "1.4.0",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "bun@1.4.0"
+}

@@ -1,0 +1,14 @@
+# The install policy. Versions are declared in package.json; this file is the
+# rules around fetching them.
+
+[install]
+# Nothing published in the last three days is installed. Every npm compromise
+# of the last few years was found and yanked well inside that window, so waiting
+# it out removes the whole class of attack at the cost of never being first to a
+# release. `bun install --frozen-lockfile`, which CI runs, resolves nothing and
+# is unaffected. When a dependency is added or moved and its newest version is
+# younger than the window, bun refuses it and reports the package as "not in the
+# catalog"; the override for that one install is:
+#
+#     bun install --minimum-release-age=0
+minimumReleaseAge = 259_200
