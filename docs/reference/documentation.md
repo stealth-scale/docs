@@ -104,6 +104,6 @@ Plain English, as to a colleague who knows the area and is short on time.
   and on the site.
 - Lines wrap at 100 columns. Tables are aligned by the formatter.
 
-Nothing in a document narrates its own structure or the session that produced it, calls a
+Nothing in a document narrates its own structure or the work that produced it, calls a
 thing comprehensive, robust or seamless, or repeats a fenced block that another page already
 holds.

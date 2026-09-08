@@ -7,7 +7,7 @@ sidebar:
 
 A commit message is read by someone scanning `git log` for the change that introduced or
 broke something, by a reviewer, and by the release tooling that turns commits into a
-changelog. It says what the change does and why, in words a stranger to the session
+changelog. It says what the change does and why, in words a reader who was not there
 understands. The format is Conventional Commits 1.0.0; the header rules are Angular's, the
 body rules are Go's.
 
@@ -69,11 +69,9 @@ changed and why, in engineering terms: the mechanism, not the intent.
 - The number, when the change is a `perf` commit: the measurement before and after.
 - The consequence a reader must know: a migration, a config key, a renamed export.
 
-The body never contains a narration of the working session (the tools used, the order things
-were found, what was tried first), a "verified with" trailer, or the design argument for the
-approach; that argument is an RFC's or an ADR's, and the commit says what changed. The check
-before committing: count the sentences that explain rather than state. More than one, and the
-body is rewritten as bullets.
+The body never contains a narration of how the change was made (what was tried first, in
+which order, with which tools), a "verified with" trailer, or the design argument for the
+approach; that argument is an RFC's or an ADR's, and the commit says what changed.
 
 ## The footer
 
@@ -90,10 +88,10 @@ A repository that publishes packages also carries a changeset file for the chang
 changeset's note says what a consumer sees. The commit and the changeset agree on the bump:
 a `!` header is a major, a `feat` a minor, a `fix` a patch.
 
-## The history, rewritten
+## A summary that says nothing, and its repair
 
-Five subjects from the monorepo's history, and what each should have said. Every original
-describes the tree in a noun phrase, and none says what the change does.
+A summary that describes the tree in a noun phrase says nothing about the change. Five such
+summaries, and what each should say instead:
 
 | As written                                                                     | Rewritten                                                                       |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
@@ -121,17 +119,8 @@ the workspace holds. Each spec now states its rule and reads the tree:
 A new package needs no edit outside its own directory.
 ```
 
-## Before a commit
+## One change per commit
 
-- The header completes "this change modifies the repository to …", names the thing changed,
-  and fits in 72 characters.
-- The type is the one the table gives for this kind of change, and the scope is the tree's
-  root directory or absent.
-- The body states what changed and why, wrapped at 72 columns, with no narration of the
-  session and no design argument.
-- A breaking change carries `!` and a `BREAKING CHANGE:` footer; a published package carries
-  a changeset that agrees with it.
-- One change per commit: a move and its rewrite are two commits, so a reviewer can see that
-  the move lost nothing.
-
-No gate checks a message in this repository; a reviewer refuses one that fails the list.
+A commit holds one change. A move and its rewrite are two commits, so a reviewer can see
+that the move lost nothing; a fix and the refactoring it made room for are two commits, so
+the fix can be reverted alone. No hook checks a message; review holds it to this page.

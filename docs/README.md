@@ -22,8 +22,7 @@ Start with the question you arrived with.
 | What a docblock says, and on what                                | [Docblocks](reference/docblocks.md)                |
 | How a commit message is written                                  | [Commit messages](reference/commits.md)            |
 | Where a document goes, and how it is written                     | [Documentation](reference/documentation.md)        |
-| The four files of a component, and what each holds               | [Documenting a component](reference/components.md) |
-| How a story file is written                                      | [Stories](reference/stories.md)                    |
+| The four files of a component: source, stories, page and spec    | [Documenting a component](reference/components.md) |
 | How to build, check and land a change to this repository         | [Contributing](../CONTRIBUTING.md)                 |
 
 ## Where things go

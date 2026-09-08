@@ -11,8 +11,8 @@ implementation and is read only by someone editing the file. What a caller needs
 in the docblock; how the body does it is in line comments; the two never mix.
 
 The standard follows the JSDoc tags TypeScript reads, as its handbook lists them, and the
-form Google's style guides prescribe. A reader who covers the signature and reads only the
-docblock can call the thing correctly, in every case, and knows what it throws.
+form Google's style guides prescribe. From the docblock alone, a caller knows what to pass,
+what comes back in every case, and what is thrown.
 
 ## What is documented
 
@@ -441,19 +441,6 @@ upstream bug the workaround covers, what a magic number means. It sits on its ow
 above the code it explains, with a space after the marker, as sentences. A comment that
 needs several lines is several `//` lines; `/* … */` is not used. `// TODO(name): …` names
 who owns the follow-up and what it is; a TODO never sits in a docblock.
-
-## Before a commit
-
-- Cover the signature. From the docblock alone, a caller knows what to pass, what comes back
-  in every case, and what is thrown.
-- Every parameter has its line with its type; every case of the result is named; every
-  deliberate throw names its class; every type parameter has its `@template`.
-- Every type in a tag is the signature's, character for character.
-- No tag repeats the name, and none says "the value".
-- Every docblock is the multi-line form, with the blank line between its parts and the tags
-  in order.
-- `vp check` is clean: the rules below fire on what can be checked mechanically, and the
-  reviewer reads the rest.
 
 ## What enforces it
 
