@@ -5,9 +5,9 @@ sidebar:
   order: 6
 ---
 
-A reader arrives with a question and reaches the answer in one hop. That is the only thing
-the layout is for. Each document lives in one place, and every index says what is really
-there. A directory exists only when there is something to put in it.
+A reader arrives with a question and reaches the answer without a second search. That is the
+only thing the layout is for. Each document is in one place, and every index says what is
+really there. A directory exists only when there is something to put in it.
 
 ## The tree
 
@@ -39,7 +39,7 @@ docs/
 | An implementation detail, a bug fix, a naming choice              | Nowhere; the pull request is enough |
 
 A reference page describes and never instructs. A how-to instructs and never explains. An
-explanation page may summarise several decisions into one current picture and link to them;
+explanation page may summarise several decisions into one current account and link to them;
 it never records a decision, because it is edited freely and an ADR is not.
 
 The records of every repository, its RFCs, ADRs and roadmap, live in `stealth-scale/docs`.
@@ -84,7 +84,7 @@ Nothing points at a milestone.
 
 Four rules keep the records honest:
 
-- **The document graph lives in the frontmatter.** `supersedes`, `superseded-by`,
+- **The links between records are in the frontmatter.** `supersedes`, `superseded-by`,
   `produces-adr`, `depends-on` and `rfc` are the only copy. A body states the fact, never
   "ADR-0004 says"; References holds the pointer for anyone who wants to check.
 - **Milestones belong to the roadmap and nowhere else.** No RFC or ADR names a milestone, not

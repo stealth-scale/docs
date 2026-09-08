@@ -6,11 +6,25 @@ sidebar:
 ---
 
 A product is a deployment document, a product plugin and the plugins the document names.
-The platform supplies everything else, and the platform is built once.
+The application that runs them is built once.
 
 The host is one image. It reads its document at start, fetches the plugins the document
 names, and mounts the shell. Nothing about a product is compiled into the host, so one image
 runs every product in every environment.
+
+## What the platform does
+
+Three things, and everything else in this section follows from them.
+
+- **It composes one API.** The gateway builds one schema from every plugin's part and from
+  any GraphQL service you already run, and answers a screen's request from all of them at
+  once.
+- **It loads the frontend.** Each plugin's web part is fetched while the application runs, so
+  a plugin ships without anybody rebuilding the product.
+- **It declares the interfaces a product needs, and ships a plugin for each.** Identity,
+  configuration, flags, files, search, notifications and audit are interfaces with a default
+  behind them, and [What you can replace](replaceable.md) says how a company swaps one for
+  its own.
 
 ## What runs in the browser
 
@@ -80,5 +94,6 @@ A slot re-renders only when its own list of blocks changes. A rule names which p
 context it reads, so a navigation that changes nothing a slot's rules read is not an
 evaluation of that slot.
 
-[Declaring an entity](entities.md) says what one declaration gives a plugin.
-[The request path](requests.md) says how a screen reaches a row.
+[Declaring an entity](entities.md) says what one declaration gives a plugin, and
+[Building a screen](screens.md) says how a plugin turns that into something a person uses.
+[What a plugin brings](plugins.md) covers a plugin that reads from a service you already run.

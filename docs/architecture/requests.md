@@ -2,12 +2,16 @@
 title: The request path
 description: 'How a screen reaches a row: one GraphQL gateway in front of every product, one backend per plugin, and Connect between the backends and the services.'
 sidebar:
-  order: 4
+  order: 7
 ---
 
-One GraphQL gateway stands in front of every product. The browser speaks GraphQL to it and
-nothing else, and it accepts persisted documents only. Behind the gateway sits one backend
-per plugin that has data, and beside them the services every backend depends on.
+Every request a screen makes goes to one GraphQL gateway, which runs only the queries the
+product shipped. Behind it runs one backend for each plugin that has data, and beside those
+the services every backend uses.
+
+The gateway does not resolve a field itself. It composes one schema from every plugin's part
+and from any GraphQL API you already run, works out which backend answers which part of a
+query, and puts the results together.
 
 ## A read
 
@@ -52,11 +56,12 @@ identifier. The form puts each issue at its field and translates it from the cod
 | a backend   | a service    | Connect over protobuf        | identity, configuration, and publishing an event |
 | a backend   | the gateway  | GraphQL, its own documents   | another plugin's data, outside a resolver        |
 | a backend   | its own rows | SQL, in its own schema       | everything it stores                             |
+| a backend   | your service | Connect, gRPC or HTTP        | a record your company already stores             |
 | a connector | a vendor     | the vendor's protocol        | the one place a vendor's API is called           |
 
 Connect never reaches a browser, and no backend reads another backend's tables. A backend
-that needs another plugin's data asks the graph. Every caller therefore goes through one API,
-one allow-list and one authorisation path.
+that needs another plugin's data asks the graph, so every caller goes through one API, one
+list of allowed queries and one set of permission checks.
 
 ## Persisted documents only
 

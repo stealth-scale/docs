@@ -66,7 +66,7 @@ Rules that stand for a security decision:
   its exception in its own override.
 - `no-restricted-imports`, per tier: the root config names each tier, what it may not import
   and why, through `lintConfig({ layers })`. The rule holds for what a package ships; a
-  specification may reach for a development-time package whatever tier it sits in.
+  specification may reach for a development-time package whatever tier it is in.
 
 ## Types
 
@@ -80,13 +80,13 @@ repository's own source condition; every package extends the repository's base a
 nothing but its `include`. A package's tsconfig never includes its `vite.config.ts`, or the
 declaration build writes files beside the config's imports.
 
-A package is checked against its dependencies' source, not their `dist`: no build sits
+A package is checked against its dependencies' source, not their `dist`, so nothing is built
 between an edit and `vp check`, a spec or a story.
 
 ## Tests
 
-A spec sits beside every source, named after it: `thing.ts` and `thing.spec.ts`, a barrel
-included. No guard checks the pairing yet; the coverage floor is what fails a source that
+Every source file has a spec beside it, named after it: `thing.ts` and `thing.spec.ts`, a
+barrel included. No guard checks the pairing yet; the coverage floor is what fails a source that
 nothing exercises.
 
 | Spec            | Runs in  | Because                                                      |
@@ -99,7 +99,7 @@ Never a `.spec.ts` and a `.spec.tsx` of the same basename beside each other: the
 linter resolves the second without the workspace condition.
 
 Coverage is on by default and the floor is 100% of statements, branches, functions and lines
-per file. What sits outside the floor is listed in the root config with the reason beside
+per file. What is left out of the floor is listed in the root config with the reason beside
 each entry: a `bin` that hands its command to a parser and decides nothing, a module
 Storybook loads by its default export and nothing outside a catalogue can load. A green
 suite is not a review: coverage says a line ran, not that it behaved, so a spec asserts the

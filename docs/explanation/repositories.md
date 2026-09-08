@@ -1,6 +1,6 @@
 ---
 title: The repositories
-description: Why the code is cut into four repositories, what each one holds, and the seams between them.
+description: Why the code is split into four repositories, what each one holds, and what crosses between them.
 sidebar:
   order: 2
 ---
@@ -44,13 +44,14 @@ repository takes it at development time; it is deployed as an image or a remote;
 a command. A concern inside a package is a directory with a subpath entry, so
 `@stealthscale/web-sdk/router` is one manifest and one version, tree-shaken per entry.
 
-## The seams that stayed, and the one that went
+## What crosses between them
 
-**GraphQL is the browser's only door.** Every read and write from a screen goes through one
-gateway with persisted documents. Between backends and services the transport is Connect over
-protobuf, and it never reaches the browser. The two protocols answer two different questions:
-the browser needs one composable graph it cannot misuse; a backend needs a typed procedure
-with a schema checked in a registry.
+**A browser speaks GraphQL, and nothing else.** Every read and write a screen makes goes to
+one gateway, which runs only the queries the product shipped. Backends and services speak
+Connect over protobuf to each other, and that never reaches a browser. The two protocols are
+kept apart because they are asked for different things: a browser needs one query across
+several plugins, and a backend needs a typed procedure whose schema is checked before it is
+deployed.
 
 **Module federation is the loader.** A plugin's web part is a federated bundle the host
 fetches at run time, so a plugin is redeployed without rebuilding the host. One module in the
@@ -60,8 +61,7 @@ named.
 **Words are ICU MessageFormat catalogues, resolved by the platform.** A component speaks keys
 through a resolver the root provides; a package ships its keys and their base locale as ICU
 data; the platform loads them into its translation chain, and an app outside the platform
-loads them into its own. An earlier design compiled words with inlang and paraglide into every
-package, which made a second translation system below the platform's, and it was dropped.
+loads them into its own.
 
 **An SDK is for building a plugin; functionality is a plugin.** The backend SDK holds what no
 backend exists without: the process, the platform, the database, the outbox and the queue, the

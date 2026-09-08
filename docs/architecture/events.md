@@ -2,7 +2,7 @@
 title: Events, jobs and automations
 description: 'How a change becomes an event in the same transaction, how a backend runs work that outlives a request, and what an administrator composes without a developer.'
 sidebar:
-  order: 9
+  order: 12
 ---
 
 A change and the event about it are one transaction. The backend writes the row and the event
@@ -32,6 +32,17 @@ outbox: the channel belongs to the events service.
 What reaches a browser is never the record. It is the plugin, the type, the id, the kind of
 change and the names of the fields that changed. The browser refetches under the reader's own
 permissions, so a change cannot show anybody a row they may not read.
+
+## When your own service stores the record
+
+There is no shared transaction across a boundary the platform does not control, so a record
+your service stores cannot be written and announced as one step. The platform takes changes
+from whatever your service offers: a change feed it reads, a webhook it receives, or polling.
+Delivery is still at least once and consumers are still idempotent.
+
+A source that offers none of those produces no events, and the declaration says so rather
+than pretending. Nothing that depends on events works for that entity: no live updates, no
+automations triggered by a change, and no index the platform keeps current.
 
 ## Jobs
 
@@ -67,13 +78,13 @@ interface Automation {
 ```
 
 A condition reads a path in the payload, and follows a reference to a record once. It does not
-follow a second, because every hop is a fetch on every matching event and a permission check
-the administrator cannot see. A question that needs two hops is a field on the entity, or a
-rule a developer writes and somebody reviews.
+follow a second, because each one is another fetch on every matching event and another
+permission check the administrator cannot see. A question that needs two is a field on the
+entity, or a rule a developer writes and somebody reviews.
 
-An action runs through the same door a person's click goes through. A command runs its
-mutation, a notification goes through the notifications service, and a procedure goes through
-the connector the organisation configured.
+An action runs the same way a person's click runs. A command runs its mutation, a notification
+goes through the notifications service, and a procedure goes through the connector the
+organisation configured.
 
 ### What stops an automation harming anything
 

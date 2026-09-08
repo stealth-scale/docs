@@ -26,7 +26,7 @@ current choices.
 | No. | A team needs                                                                              |
 | --- | ----------------------------------------------------------------------------------------- |
 | 1   | The application's logic as TypeScript source in a repository the team owns                |
-| 2   | A record declared once, and its table, its API and its screens derived from that          |
+| 2   | A record declared once, with its API and its screens derived from it                      |
 | 3   | Sign-in and sessions built in                                                             |
 | 4   | Roles and permissions built in, configured rather than coded                              |
 | 5   | Records scoped to an organisation or tenant, built in                                     |
@@ -41,27 +41,28 @@ current choices.
 | 14  | Test tooling and CI conventions the product provides                                      |
 | 15  | An open-source licence                                                                    |
 | 16  | Self-hosting, documented                                                                  |
+| 17  | Records read from services or databases the team already runs                             |
 
 ## The matrix
 
-| Product     | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  | 11  | 12  | 13  | 14  | 15  | 16  |
-| ----------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| stealth     | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ●   | ●   | ◐   |
-| Wasp        | ●   | ◐   | ●   | ○   | ○   | ●   | ●   | ○   | ○   | ○   | ○   | ◐   | ○   | ◐   | ●   | ●   |
-| Payload     | ●   | ●   | ●   | ◐   | ●   | ●   | ●   | ◐   | ○   | ◐   | ◐   | ◐   | ○   | ◐   | ●   | ●   |
-| Keystone    | ●   | ●   | ◐   | ◐   | ○   | ●   | ○   | ○   | ○   | ○   | ○   | ○   | ○   | ◐   | ●   | ●   |
-| Refine      | ●   | ◐   | ◐   | ◐   | ○   | ◐   | ○   | ○   | ○   | ◐   | ◐   | ◐   | ○   | ◐   | ●   | ●   |
-| react-admin | ●   | ◐   | ◐   | ◐   | ○   | ◐   | ○   | ○   | ○   | ◐   | ●   | ◐   | ○   | ○   | ●   | ●   |
-| Supabase    | ◐   | ◐   | ●   | ◐   | ◐   | ●   | ●   | ◐   | ○   | ○   | ○   | ◐   | ○   | ○   | ●   | ●   |
-| NocoBase    | ◐   | ◐   | ●   | ●   | ◐   | ●   | ●   | ○   | ●   | ◐   | ●   | ●   | ●   | ◐   | ◐   | ●   |
-| Directus    | ◐   | ●   | ●   | ●   | ○   | ●   | ◐   | ○   | ●   | ●   | ●   | ●   | ◐   | ○   | ◐   | ●   |
-| Saltcorn    | ◐   | ◐   | ●   | ◐   | ●   | ◐   | ●   | ○   | ●   | ◐   | ◐   | ●   | ●   | ○   | ●   | ●   |
-| Budibase    | ○   | ◐   | ●   | ●   | ●   | ○   | ◐   | ○   | ●   | ◐   | ◐   | ●   | ◐   | ○   | ●   | ●   |
-| Appsmith    | ◐   | ◐   | ●   | ◐   | ○   | ○   | ◐   | ○   | ◐   | ○   | ◐   | ●   | ○   | ○   | ●   | ●   |
-| ToolJet     | ◐   | ◐   | ●   | ●   | ◐   | ○   | ◐   | ○   | ◐   | ◐   | ●   | ◐   | ○   | ◐   | ●   | ●   |
-| Retool      | ◐   | ◐   | ●   | ◐   | ○   | ○   | ◐   | ○   | ●   | ◐   | ●   | ◐   | ○   | ◐   | ○   | ◐   |
-| Backstage   | ●   | ○   | ◐   | ◐   | ○   | ◐   | ◐   | ●   | ◐   | ◐   | ●   | ◐   | ◐   | ●   | ●   | ●   |
-| Odoo        | ◐   | ◐   | ●   | ●   | ●   | ◐   | ●   | ○   | ◐   | ◐   | ○   | ●   | ◐   | ◐   | ●   | ●   |
+| Product     | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  | 11  | 12  | 13  | 14  | 15  | 16  | 17  |
+| ----------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| stealth     | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ◐   | ●   | ●   | ◐   | ◐   |
+| Wasp        | ●   | ◐   | ●   | ○   | ○   | ●   | ●   | ○   | ○   | ○   | ○   | ◐   | ○   | ◐   | ●   | ●   | ○   |
+| Payload     | ●   | ●   | ●   | ◐   | ●   | ●   | ●   | ◐   | ○   | ◐   | ◐   | ◐   | ○   | ◐   | ●   | ●   | ○   |
+| Keystone    | ●   | ●   | ◐   | ◐   | ○   | ●   | ○   | ○   | ○   | ○   | ○   | ○   | ○   | ◐   | ●   | ●   | ○   |
+| Refine      | ●   | ◐   | ◐   | ◐   | ○   | ◐   | ○   | ○   | ○   | ◐   | ◐   | ◐   | ○   | ◐   | ●   | ●   | ●   |
+| react-admin | ●   | ◐   | ◐   | ◐   | ○   | ◐   | ○   | ○   | ○   | ◐   | ●   | ◐   | ○   | ○   | ●   | ●   | ●   |
+| Supabase    | ◐   | ◐   | ●   | ◐   | ◐   | ●   | ●   | ◐   | ○   | ○   | ○   | ◐   | ○   | ○   | ●   | ●   | ○   |
+| NocoBase    | ◐   | ◐   | ●   | ●   | ◐   | ●   | ●   | ○   | ●   | ◐   | ●   | ●   | ●   | ◐   | ◐   | ●   | ●   |
+| Directus    | ◐   | ●   | ●   | ●   | ○   | ●   | ◐   | ○   | ●   | ●   | ●   | ●   | ◐   | ○   | ◐   | ●   | ●   |
+| Saltcorn    | ◐   | ◐   | ●   | ◐   | ●   | ◐   | ●   | ○   | ●   | ◐   | ◐   | ●   | ●   | ○   | ●   | ●   | ○   |
+| Budibase    | ○   | ◐   | ●   | ●   | ●   | ○   | ◐   | ○   | ●   | ◐   | ◐   | ●   | ◐   | ○   | ●   | ●   | ●   |
+| Appsmith    | ◐   | ◐   | ●   | ◐   | ○   | ○   | ◐   | ○   | ◐   | ○   | ◐   | ●   | ○   | ○   | ●   | ●   | ●   |
+| ToolJet     | ◐   | ◐   | ●   | ●   | ◐   | ○   | ◐   | ○   | ◐   | ◐   | ●   | ◐   | ○   | ◐   | ●   | ●   | ●   |
+| Retool      | ◐   | ◐   | ●   | ◐   | ○   | ○   | ◐   | ○   | ●   | ◐   | ●   | ◐   | ○   | ◐   | ○   | ◐   | ●   |
+| Backstage   | ●   | ○   | ◐   | ◐   | ○   | ◐   | ◐   | ●   | ◐   | ◐   | ●   | ◐   | ◐   | ●   | ●   | ●   | ●   |
+| Odoo        | ◐   | ◐   | ●   | ●   | ●   | ◐   | ●   | ○   | ◐   | ◐   | ○   | ●   | ◐   | ◐   | ●   | ●   | ○   |
 
 ## What the matrix shows
 
@@ -77,11 +78,18 @@ the host-and-plugins shape and a test harness for both halves, and no data model
 from. Odoo has the declare-once thesis with a default view per model, in Python, inside its
 suite.
 
-No product in the set combines all four of: the application as TypeScript in the team's
-repository, screens derived from a declared record, plugins loaded at run time, and a product
-composed at start from a document. That combination is stealth's design. Two of its columns
-are built today, the test tooling and the licence; the rest is specified and not yet code,
-which [What stealth is](what-stealth-is.md) says in its own words.
+The split in column 17 is the one that matters most for a company that already runs services.
+The products that read from what a team already has, and the products that derive an API and
+screens from a declared record, are almost two different sets. Payload, Keystone and Odoo
+derive a great deal and expect to own the data. Refine, react-admin, Retool and the other
+builders connect to anything and derive little beyond a scaffold.
+
+No product in the set combines all four of: the application as TypeScript in the team's own
+repository, an API and screens derived from a declared record whether or not the product
+stores it, plugins loaded while the application runs, and a product composed at start from a
+document. That combination is stealth's design. Two of its columns are built today, the test
+tooling and the licence. The rest is specified and not yet code, which
+[What stealth is](what-stealth-is.md) says in its own words.
 
 ## The products
 
@@ -210,9 +218,9 @@ a contributor guide for the platform's own interface. Testing is Cypress against
 selectors the builder adds to every component.
 
 **Retool** is "a platform for building, automating, and governing enterprise applications";
-proprietary, with a free plan up to five users; no public repository. Apps live in Retool's
-editor; source control with GitHub, GitLab, Bitbucket, Azure Repos and CodeCommit is an
-Enterprise feature. Free and Team plans have the default Admin and All Users groups; custom
+proprietary, with a free plan up to five users; no public repository. Apps are built and kept
+in Retool's editor; source control with GitHub, GitLab, Bitbucket, Azure Repos and CodeCommit
+is an Enterprise feature. Free and Team plans have the default Admin and All Users groups; custom
 groups start on Business. Workflows run on schedules and webhooks, with 500 runs a month on
 the free plan. Internationalisation is "generally available for organizations on the
 Enterprise plan". Themes carry light and dark modes. WebDriver tests with Cypress or
@@ -240,8 +248,8 @@ acceptable for a business application". Groups, access rights, record rules and 
 are built in, as is multi-company. The external API is JSON-2 with API keys. Scheduled
 actions and server actions are built in, and automation rules are created "with Odoo
 Studio". Right-to-left needs the `rtlcss` package and has a history of forum-reported gaps.
-Installing a module happens from the Apps menu after the code sits on the addons path and
-the server restarts. Python tests, HOOT JavaScript tests and tours are documented; CI is not.
+Installing a module happens from the Apps menu after the code is on the addons path and the
+server restarts. Python tests, HOOT JavaScript tests and tours are documented; CI is not.
 No page found covers dark mode or search views.
 
 ## References

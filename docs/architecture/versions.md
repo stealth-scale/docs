@@ -2,7 +2,7 @@
 title: Versions and upgrades
 description: 'What a plugin declares about the platform it was built for, which versions the platform supports at once, and what happens to data when a declaration changes.'
 sidebar:
-  order: 11
+  order: 14
 ---
 
 A platform that loads plugins at run time has to say what happens when the two are not the

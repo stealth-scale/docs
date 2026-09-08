@@ -1,97 +1,80 @@
 ---
-title: How a product is composed
-description: The host, the plugins, the document, the one door, and what a plugin author writes.
+title: Why the platform is shaped this way
+description: 'The five choices the platform is built on, what each one buys, and what each one costs.'
 sidebar:
   order: 3
 ---
 
-A product is a deployment document, a product plugin and a handful of plugins. Everything
-else belongs to the platform. This page gives the shape; the platform's RFCs hold the
-argument and the interfaces.
+Five choices decide the shape of everything else. Each buys something specific and each costs
+something specific, and this page states both. The architecture section says how the results
+work; this page says why they were chosen.
 
-## In the browser
+## One application, and plugins loaded while it runs
 
-A **host** boots the **shell**. The shell loads **plugins** by their **manifests**, builds one
-route tree from their **screens**, and mounts a **frame**. The frame renders the active
-**layout**, which is configuration, an arrangement plus options, and draws its **slots**.
-Plugins put **blocks** into slots: typed metadata, a lazily loaded module, a place before,
-after, around or instead of what the slot already holds, and the rules under which it shows,
-**where** over the route and **when** over flags, session and permissions. Any block that
-renders can draw slots of its own.
+The application is built once. A deployment document names the plugins, and the application
+fetches each one when it starts.
 
-```mermaid
-flowchart TB
-  host[Host] -->|boots| shell[Shell]
-  shell -->|loads by manifest| plugins[Plugins]
-  shell -->|mounts| frame[Frame]
-  plugins -->|declare screens for| routes[One route tree]
-  frame -->|renders the active| layout[Layout: an arrangement plus options]
-  layout -->|draws| slots[Slots]
-  plugins -->|put blocks into, under where and when| slots
-  slots -->|hold| blocks[Blocks]
-  blocks -->|may draw their own| slots
-```
+That buys independent delivery. A team ships a plugin without anybody rebuilding the product,
+and a company adds a capability by naming it in a document. It also lets a plugin written in
+another repository, by another team or another company, target this product with types.
 
-The route decides everything on screen. The shell derives one **context** per navigation,
-the route, the session, the organisation and the **subjects** the screens on the branch
-declare themselves to be about, compiles every rule once, and hands the same context to every
-block. A screen's data is loaded by the router before the screen renders, through one shared
-query client.
+It costs version machinery. A plugin says which platform versions it was built for, the
+application refuses one that does not fit, and a release that removes a code file has to be
+survivable by a browser tab that is already open. The alternative, where the product imports
+its plugins and is rebuilt for each change, avoids all of that and puts one team's release in
+front of another team's.
 
-A plugin never imports another plugin, and the host never imports a plugin. What a plugin
-exposes to the rest is its **contract**: references to its slots, apis, screens, queries,
-entities, streams, flags, permissions, configuration and subjects, so a plugin built
-elsewhere targets them with types.
+## A declaration derives the data layer, not the screens
 
-## Behind the door
+Declaring a record gives you the types, the schema, the API, the events and, where you want
+it, the storage. It does not give you a user interface until you ask for one.
 
-One **GraphQL gateway** stands in front of every product, and the browser speaks GraphQL to
-it and nothing else, with persisted documents only. Behind it, one **backend** per plugin that
-has data to show: a process that hosts the plugin's subgraph, its domain rules, the entities
-it declared, its job handlers and its webhooks. A backend is built on the platform's core
-services, database, entities, events, jobs, streams, configuration, identity, telemetry and
-the rest, and reaches a service or another backend over Connect.
+That buys the part teams actually repeat. The plumbing under a record is the same everywhere,
+and the screen almost never is. A plugin author calls a builder and gets an ordinary list,
+detail view and form, or composes the same components into whatever the work needs.
 
-The identity service issues a short-lived token once. The gateway verifies it and forwards
-it as claims, and every backend verifies it again, so no hop trusts the one before it.
+It costs a screen. A platform that renders your data model without being asked reaches a
+first result faster, and then argues with you about every layout after that.
 
-```mermaid
-sequenceDiagram
-    participant B as Browser
-    participant G as GraphQL gateway
-    participant P as Plugin backend
-    participant S as Service
-    Note over B: holds the token the identity service issued
-    B->>G: persisted document, with the token
-    G->>G: verifies the token
-    G->>P: the plugin's part of the query, with the claims
-    P->>P: verifies the token again
-    P->>S: a Connect procedure
-    S-->>P: the reply
-    P-->>G: the plugin's data
-    G-->>B: one composed result
-```
+## One GraphQL API for the browser
 
-Everything a person, a plugin or a vendor hands the platform is declared once as a schema
-and checked at every boundary with that declaration.
+Every request a screen makes goes to one gateway, and only the queries a product shipped are
+allowed to run.
 
-## What a plugin author writes
+That buys three things. A screen showing three plugins' data asks once instead of three
+times. There is one place to check who is calling, rather than one per backend. And the list
+of allowed queries is short and known, so a browser cannot compose a query nobody reviewed.
 
-An **entity** declared once in the contract becomes a table, its procedures, its GraphQL,
-its events, its search, its subject and its screens. A **stream** is a query whose data grows.
-A screen is three lines naming the entity, the layout and the place. Everything a person
-reads is a key in a catalogue, rendered in that person's locale, including a manifest's
-titles.
+It costs a step between backends. A backend that needs another plugin's data goes through the
+gateway rather than calling that plugin directly, which is a request rather than a function
+call, and the graph has to be composed and checked before it is deployed.
 
-## A product
+## A product is a document
 
-The host is built once. A product is a **product plugin**, its brand, the arrangements it
-registers, its theme and its own screens if any, plus a **deployment document** naming that
-plugin, the plugins it loads, its layouts, its blocks, its flags and its head. Adding a
-product is a plugin and a document, not a build; the document is read at start, so one
-artifact runs in every environment and nothing about an environment is compiled in.
+What a product is, which plugins it loads, how it is laid out and what its flags say, is a
+file the application reads when it starts.
 
-**Automations** are what an administrator composes without a developer: a trigger, an event a
-plugin declared, a schedule or a manual run; conditions over the payload; actions that are
-commands, notifications and connector procedures. Every run is an entity with a log, and
-every action an audit record.
+That buys deployment without a build. A new environment is a document. A new product, given
+plugins that exist, is a plugin and a document. Nothing about an environment is compiled in,
+so nothing branches on an environment's name.
+
+It costs a large file that has to be right. A document that fails its schema stops the
+product from starting, and that is the one failure nobody inside the product can repair from
+a screen, so the message it prints has to be good.
+
+## Everything else is an interface with a default behind it
+
+Identity, configuration, flags, files, search, notifications and audit are each an interface.
+The platform ships a plugin for each, and a company replaces any of them with its own.
+
+That buys adoption. A company with an identity provider and a search cluster keeps both and
+takes the rest, and nothing that used them changes, because nothing that used them named them.
+
+It costs the shape of the interface. An interface has to fit everything behind it, so it
+offers what all of them can do. Reaching something only one implementation has means naming
+that one and accepting the coupling.
+
+## Where to read the details
+
+[The shape of a product](../architecture/product.md) starts the architecture section, which
+covers each of these in turn.

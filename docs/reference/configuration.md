@@ -96,7 +96,7 @@ interface Layer {
 `files` are the globs the tier holds, `forbid` the import patterns a package in it may not
 use, `except` what it may import anyway out of what `forbid` matches, and `because` the
 message shown where the rule fires. The rule holds for what a package ships; a specification
-may reach for a development-time package whatever tier it sits in.
+may reach for a development-time package whatever tier it is in.
 
 The overrides apply in this order: the web override, the layer overrides, the shared
 overrides, then the repository's own. The shared overrides say that a `*.config.ts` and a

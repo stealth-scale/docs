@@ -2,7 +2,7 @@
 title: Deployment topology
 description: 'One host image, one document per product and environment, and a plain account of what still needs a build and what does not.'
 sidebar:
-  order: 12
+  order: 15
 ---
 
 The host is built once. A product is a document naming a product plugin, the plugins to load,

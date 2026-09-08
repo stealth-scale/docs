@@ -115,7 +115,7 @@ writes or checks that section yet. Nothing in a README narrates history or statu
 One rule about the tree runs today, through the linter: the layering. The root config names
 each tier, what it may not import and why, and `lintConfig({ layers })` turns that into a
 `no-restricted-imports` rule per tier. It holds for what a package ships; a specification
-may reach for a development-time package whatever tier it sits in.
+may reach for a development-time package whatever tier it is in.
 
 The naming rule above, one spec beside every source, one owner per third-party dependency,
 and a shipped stylesheet scanning only its own `dist` are conventions this page states and no

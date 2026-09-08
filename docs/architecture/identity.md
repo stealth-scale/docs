@@ -2,13 +2,13 @@
 title: Identity and permissions
 description: 'The token the identity service issues, the claims every tier reads from it, and the three places a permission is checked.'
 sidebar:
-  order: 5
+  order: 8
 ---
 
-The identity service signs a person in once and issues a short-lived token. The gateway
-verifies that token and forwards its claims. Every backend verifies it again. No hop trusts
-the hop before it, and every tier decides from the same claims, so the browser, the gateway
-and a backend never disagree about what a person may do.
+The identity service signs a person in once and issues a short-lived token. The gateway checks
+that token and passes on what it says. Every backend checks it again for itself rather than
+trusting the caller. All three read the same claims, so the browser, the gateway and a backend
+never disagree about what a person may do.
 
 ## What the token carries
 

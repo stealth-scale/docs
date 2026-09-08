@@ -1,33 +1,28 @@
 ---
-title: Changing what is derived
-description: 'The four steps between taking a derived screen or procedure as it is and owning the code outright, and the rule that each step keeps the ones before it.'
+title: Taking over what the platform wrote
+description: 'Three ways to change the data layer the platform derived, from an option on the declaration to owning the generated code outright.'
 sidebar:
-  order: 3
+  order: 6
 ---
 
-Sometimes what the platform derived is not what you need. Four steps take you from the
-derived screen or procedure to code you own outright. You take the first step that solves the
-problem, and every step keeps what the steps before it gave you.
+What the platform derives from a declaration is the data layer: the schema, the API, the
+procedures, the events and, where the platform stores the record, the table. A screen is not
+in that list, because a plugin composes its own.
 
-| Step      | You write                                         | The platform keeps writing         |
-| --------- | ------------------------------------------------- | ---------------------------------- |
-| Configure | options on the screen, or fields on the entity    | everything else                    |
-| Compose   | a block in a slot the screen draws                | the screen                         |
-| Hook      | a function the generated procedure calls          | the procedure around your function |
-| Own       | the expanded code, written out by `stealth eject` | every part you did not eject       |
+So this page is about one question. What happens when a generated procedure is not what your
+business does.
+
+| Step      | You write                                | The platform keeps writing         |
+| --------- | ---------------------------------------- | ---------------------------------- |
+| Configure | options on the declaration               | everything else                    |
+| Hook      | a function the generated procedure calls | the procedure around your function |
+| Own       | the code, written out by `stealth eject` | every part you did not eject       |
 
 ## Configure
 
-A derived screen takes options for what the declaration does not say: which columns a list
-shows, which tabs a detail screen draws, how a form is grouped. Adding a field to the entity
-changes the table, the API, the form and the filters at once.
-
-## Compose
-
-Every screen draws three slots by convention, for its actions, its aside and its tabs, and a
-screen declares more when it has more to offer. Any plugin puts a block into any of them
-under a rule that says where and when the block shows. A block adds a tab to a detail screen
-another team wrote, without either plugin importing the other.
+Adding a field to the declaration changes the table, the schema, the API and every component
+that reads the entity at once. Marking an entity extensible lets an administrator add fields
+without a release at all.
 
 ## Hook
 
@@ -48,7 +43,7 @@ export const hooks: EntityHooks<typeof agreement> = {
 }
 ```
 
-A refusal from a hook carries a code, and the code is what the form translates, so the person
+A refusal from a hook carries a code, and the code is what a form translates, so a person
 reads the rule in their own language at the field it applies to.
 
 ## Own
@@ -57,13 +52,11 @@ Where a hook is not enough, take the code:
 
 ```sh
 stealth eject procedure agreements.agreement update
-stealth eject screen agreements.detail
 ```
 
 The command writes what the platform generated into the plugin as ordinary source, and the
 build stops using the generated copy. Everything you did not eject stays generated: ejecting
-one procedure leaves the other six, and ejecting the detail screen leaves the list and the
-form.
+one procedure leaves the other six.
 
 The platform keeps generating what you ejected, for comparison alone:
 
@@ -72,12 +65,15 @@ stealth eject --diff
 ```
 
 That prints how far each owned copy has drifted from what every other entity gets, so you can
-see what improvements you are no longer receiving. Adopting the platform's version again is
+see which improvements you are no longer receiving. Taking the platform's version again is
 deleting your file.
 
-## The rule
+## What is not derived at all
 
-Each step keeps everything below it. A screen you eject still draws its slots, so other
-plugins keep extending it. A procedure you eject still runs inside the transaction that
-writes the audit record and publishes the event. Nothing about ejecting takes you out of the
-platform, and nothing about it is one way.
+A join across plugins, an aggregate, or a procedure that is not about one record is written
+in the plugin's backend from the start, exposed through its own part of the graph. There is
+nothing to eject, because there was never a generated version.
+
+The same holds for a screen. [Building a screen](screens.md) covers the three ways to write
+one, and extending a screen another team wrote is a block in one of its slots rather than a
+change to their code.

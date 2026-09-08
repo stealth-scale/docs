@@ -123,4 +123,5 @@ A new package needs no edit outside its own directory.
 
 A commit holds one change. A move and its rewrite are two commits, so a reviewer can see
 that the move lost nothing; a fix and the refactoring it made room for are two commits, so
-the fix can be reverted alone. No hook checks a message; review holds it to this page.
+the fix can be reverted alone. No hook checks a message; a reviewer checks it against this
+page.

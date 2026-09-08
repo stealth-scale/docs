@@ -2,7 +2,7 @@
 title: Words, locale and direction
 description: "Every string a person reads is a key in a catalogue, resolved through a chain, rendered in that person's language and writing direction."
 sidebar:
-  order: 7
+  order: 10
 ---
 
 A component contains no words. It speaks keys, and the platform resolves each key in the

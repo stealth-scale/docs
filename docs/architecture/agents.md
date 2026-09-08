@@ -2,7 +2,7 @@
 title: Agents and tools
 description: 'Why an agent on this platform gets typed tools, a bounded token and an audit record for every action, without anyone building an AI feature.'
 sidebar:
-  order: 10
+  order: 13
 ---
 
 A command is a named action with an argument schema and a permission. A command that declares
@@ -17,7 +17,7 @@ nobody secures one separately.
 
 An agent is handed the tools whose rules hold where it is working, the schema of each tool's
 arguments, and a token. It is handed no database, no vendor credential and no way to reach a
-backend except the one door every screen uses.
+backend except the same gateway every screen uses.
 
 | What an agent may do                     | What stops it going further                                     |
 | ---------------------------------------- | --------------------------------------------------------------- |

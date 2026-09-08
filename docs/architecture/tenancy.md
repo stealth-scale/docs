@@ -2,7 +2,7 @@
 title: Tenancy and isolation
 description: 'How one organisation is kept from reading another organisation, enforced by the database and by a transaction that refuses to open without a tenant.'
 sidebar:
-  order: 6
+  order: 9
 ---
 
 Every entity table carries a `tenant` column and a row policy on it, unless the declaration
@@ -29,6 +29,17 @@ The browser's query keys carry the organisation as well. Switching organisation 
 leaves nothing of the previous one in the cache, and the switch is a full reload, because
 which plugins are on and how they are configured belong to the organisation and the route
 tree is built once.
+
+## When your own service stores the record
+
+The four layers above describe what the platform can enforce for a record it stores. It
+cannot enforce a policy inside a database it does not run.
+
+What it still does is send your service the person's identity and the organisation they are
+working in, on every call, and refuse to call at all when a tenant-scoped entity has no
+organisation. What your service does with that is your service's decision, and it stays the
+authority. A service account, which would make every screen one caller, is a declared
+exception rather than the default.
 
 ## What an organisation owns
 

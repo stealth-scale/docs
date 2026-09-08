@@ -2,7 +2,7 @@
 title: Appearance and theming
 description: 'The six values that decide how a product is drawn for one person, and the recipe a theme is written as before the toolchain solves it for contrast.'
 sidebar:
-  order: 8
+  order: 11
 ---
 
 How a product is drawn for one person is six values. The host, the settings area and the
@@ -37,8 +37,7 @@ text by picking the wrong colour.
 
 A component names a token, never a literal colour and never a Tailwind alias. A theme sets
 every token the contract declares, and a component that names a token it did not declare
-fails the check. Light and dark live in one stylesheet, so switching mode changes no
-stylesheet and loads nothing.
+fails the check. Light and dark are in one stylesheet, so switching mode loads nothing.
 
 ## What the host does at start
 
