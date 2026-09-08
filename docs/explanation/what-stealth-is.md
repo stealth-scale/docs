@@ -58,6 +58,9 @@ are the same ones.
 | a portal framework such as Backstage | one host and plugins that each bring a web part and a backend, the shape stealth takes                                                                             | it is built for developer portals and derives no screens from a data model                                                                         |
 | stealth                              | plugins in TypeScript in your own repository, checked like the platform itself; records that derive their table, API and screens; a product composed by a document | the platform decides the shape of a screen and the one door to the data, and a tool that needs neither gains nothing from it                       |
 
+[How stealth compares](comparison.md) checks sixteen capabilities against fifteen products,
+from each product's own documentation.
+
 ## What the platform supplies
 
 - Sign-in and sessions. The identity service issues a short-lived token once, and the gateway
