@@ -1,6 +1,6 @@
 ---
 title: Identity
-description: How the system knows who is calling, and what a caller carries with them.
+description: Recognising the caller, and the contents of a verified call.
 sidebar:
   order: 1
 ---
@@ -13,7 +13,7 @@ Say what goes wrong without this concept.
 
 Describe the mechanism. Add one short example.
 
-## What a verified caller carries
+## The contents of a verified call
 
 List what every part of the system can rely on. Say what is optional.
 

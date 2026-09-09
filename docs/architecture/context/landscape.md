@@ -9,7 +9,7 @@ sidebar:
 
 Draw a C4 system landscape diagram. Show every system in the picture, not just ours.
 
-## The systems, and who owns each
+## The systems and their owners
 
 Add one row per system on the diagram.
 
@@ -17,7 +17,7 @@ Add one row per system on the diagram.
 | ------ | ------------ | ----------- | --------------- |
 |        |              |             |                 |
 
-## Where the platform boundary is drawn
+## The platform boundary
 
 Say which systems are inside the platform and which are outside. Explain why the line is
 drawn there.

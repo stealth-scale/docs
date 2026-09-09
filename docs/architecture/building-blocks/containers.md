@@ -10,7 +10,7 @@ sidebar:
 Draw a C4 container diagram. Show every application and data store that runs, and the
 connections between them.
 
-## Why the system is split this way
+## The reason for this split
 
 Say why the parts are cut here and not somewhere else. Name the quality goal each cut serves.
 
@@ -24,8 +24,8 @@ Add one row per box on the diagram.
 
 ## Interfaces between containers
 
-Describe the interfaces the table above cannot carry. Leave this out when there are none.
+Describe any interface the preceding table cannot express. Leave this out when there are none.
 
-## What this view leaves out
+## Out of scope for this view
 
 Say that deployment is not on this page and link to [Topology](../deployment/topology.md).

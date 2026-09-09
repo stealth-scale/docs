@@ -27,5 +27,5 @@ Say which tier may import which, and name what enforces each rule.
 
 Say which packages go to a registry, and which never leave their repository.
 
-The rules for laying out a repository and naming a package are in
-[Repositories and packages](../../reference/packages.md).
+[Repositories and packages](../../reference/packages.md) gives the layout rules and the
+naming rule.

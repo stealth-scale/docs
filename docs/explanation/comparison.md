@@ -7,13 +7,13 @@ sidebar:
 
 This page compares stealth with fifteen products a team might build business software on
 today. Every cell for another product comes from that product's own documentation, read on
-8 September 2026, and the References at the bottom list each page. Where the documentation
-does not say, the cell says no. The repository facts, archived state, last push, stars and
-licence, come from the GitHub API on the same day.
+September 8, 2026, and each page is listed at the bottom. Where a product's documentation is
+silent on a capability, the cell says no rather than guessing. Repository facts come from the
+GitHub API the same day: archived state, last push, stars and licence.
 
-Amplication is not in the set: its site now redirects to a different company's product.
-Frappe is not in the set: its shape predates the rest by a decade, and this page compares
-current choices.
+Amplication is not in the set, because its site now redirects to a different company's
+product. Frappe is not in the set, because it is a decade older than everything else here
+and this page compares what a team would choose today.
 
 | Mark | For another product                                                                                  | For stealth                                |
 | ---- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------ |
@@ -64,19 +64,19 @@ current choices.
 | Backstage   | ●   | ○   | ◐   | ◐   | ○   | ◐   | ◐   | ●   | ◐   | ◐   | ●   | ◐   | ◐   | ●   | ●   | ●   | ●   |
 | Odoo        | ◐   | ◐   | ●   | ●   | ●   | ◐   | ●   | ○   | ◐   | ◐   | ○   | ●   | ◐   | ◐   | ●   | ●   | ○   |
 
-## What the matrix shows
+## Two groups of product
 
 Three products derive an admin application from a declared data model today: Payload,
-Keystone and Directus. Each gives an editor a list and a form per collection, and none
-derives the screens a product's own users work in, nor loads a plugin at run time. Two
-products load plugins at run time without a rebuild today, NocoBase and Saltcorn, and both
-keep the application itself in a database the team configures through a builder rather
-than in source the team owns. The internal-tools builders, Budibase, Appsmith, ToolJet and
-Retool, give an administrator automations and a first screen fast, and put the application
-in the vendor's editor, with source control as a paid feature where it exists. Backstage has
-the host-and-plugins shape and a test harness for both halves, and no data model to derive
-from. Odoo has the declare-once thesis with a default view per model, in Python, inside its
-suite.
+Keystone and Directus. Each gives an editor a list and a form per collection. None derives
+the screens a product's own users work in, and none loads a plugin at run time. NocoBase and
+Saltcorn do load plugins at run time, and both keep the application itself in a database the
+team configures through a builder instead of in source the team owns. The internal-tools
+builders, Budibase, Appsmith, ToolJet and Retool, give an administrator automations and a
+first screen quickly, and they keep the application in the vendor's editor, with source
+control as a paid feature where it exists at all. Backstage runs one application and loads
+plugins into it, and gives adopters a test harness for the frontend and the backend, but it
+derives nothing from a data model. Odoo declares a model once and generates a default view
+from it, in Python, inside its suite.
 
 The split in column 17 is the one that matters most for a company that already runs services.
 The products that read from what a team already has, and the products that derive an API and
@@ -93,11 +93,12 @@ tooling and the licence. The rest is specified and not yet code, which
 
 ## The products
 
-Each profile gives what the product is in its own words, its licence, its repository's last
-push and star count on 8 September 2026, and the reason behind each half mark.
+Each profile gives what the product is in its own words, its licence, its star count, and the
+reason behind each half mark. Every repository was last pushed on September 8, 2026 unless
+the profile says otherwise.
 
 **Wasp** is "a full-stack web application framework using React, Node.js, and Prisma"; MIT;
-pushed 8 September 2026; 18,726 stars. A `crud` declaration generates queries and actions
+18,726 stars. A `crud` declaration generates queries and actions
 for an entity and no screens. Its auth page covers email, username and password, Google,
 GitHub, Keycloak, Slack and Discord with sessions in the database, and says nothing about
 roles: an operation checks `context.user` itself. Jobs run on PgBoss with a cron schedule.
@@ -109,19 +110,20 @@ and the configuration moved to TypeScript.
 
 **Payload** is "the Next.js fullstack framework" with an admin panel, database migrations,
 REST and GraphQL APIs, authentication and access control "in a TypeScript codebase users own
-and deploy anywhere"; MIT; pushed 8 September 2026; 44,630 stars. A collection config yields
-the table, both APIs and the admin panel's list and edit views. Access control is functions
-the developer writes at collection, field and operation level; a role field is the example,
-not a built-in. The multi-tenant plugin and the search plugin are official and open source;
-the search plugin keeps "a static copy of each of your documents using only search-critical
-data" that you define. The admin panel ships in over thirty languages and has an opt-in
-right-to-left text alignment for inputs. Users choose light or dark mode for the admin
+and deploy anywhere"; MIT; 44,630 stars. A collection config yields the table, both APIs and
+the admin panel's list and edit views. Access control is functions the developer writes at
+collection, field and operation level, and the documentation uses a role field as its
+example while providing no role system itself. The multi-tenant plugin and the search plugin
+are official and open source; the search plugin
+keeps "a static copy of each of your documents using only search-critical data" that you
+define. The admin panel comes translated into more than thirty languages, and it can align
+input text right to left. Users choose light or dark mode for the admin
 panel; it is not a design system for a product's own screens. Deployment needs a Next.js
 build, and testing is covered by community answers and the plugin template rather than a
 guide.
 
 **Keystone** is "the superpowered headless CMS for Node.js, built with GraphQL and React";
-MIT; pushed 2 September 2026; 9,970 stars. A list config yields the Prisma table, the
+MIT; pushed September 2, 2026; 9,970 stars. A list config yields the Prisma table, the
 GraphQL API and the Admin UI. `createAuth` provides password sign-in and sessions, and its
 page names no other method. Access control is functions at operation, filter, item and field
 level, with roles not stated. The testing guide provides `@keystone-6/core/testing` helpers
@@ -129,7 +131,7 @@ for Vitest and says nothing about CI. Its pages say nothing about jobs, search, 
 theming or multi-tenancy.
 
 **Refine** is "a React meta-framework for CRUD-heavy web applications" with "a headless
-architecture"; MIT; last pushed 5 June 2026; 35,645 stars. The three-month gap is the
+architecture"; MIT; last pushed June 5, 2026; 35,645 stars. The three-month gap is the
 longest in this set. It is a frontend: a data provider connects it to REST, GraphQL,
 Supabase, Hasura, Strapi, Appwrite or NestJS. The Inferencer generates list, show, create
 and edit views from the data and is "not meant to be used in production environments". The
@@ -141,17 +143,17 @@ library chosen, Ant Design, Material UI, Chakra, Mantine or shadcn. The testing 
 recommends Cypress and says "you don't need unit testing".
 
 **react-admin** is "a frontend framework for single-page applications on top of REST/GraphQL
-APIs"; MIT; pushed 8 September 2026; 26,930 stars. The guessers build a list or a form from
-a response and are "not intended to be used in production". Authentication is an
-`authProvider` the developer implements, with ready-made providers for Google Identity,
-Microsoft Entra ID, AWS Cognito, Auth0 and Keycloak. Role-based access control is `ra-rbac`,
-"an Enterprise Edition package". Thirty-nine translation packages exist, Arabic, Hebrew and
-Farsi among them, and the locales page does not mention right-to-left rendering. Five
-built-in themes each have a light and a dark variant, and the B&W theme is "ideal for
-visually impaired users". The documentation index names no testing or deployment page.
+APIs"; MIT; 26,930 stars. The guessers build a list or a form from a response and are "not
+intended to be used in production". Authentication is an `authProvider` the developer
+implements, with ready-made providers for Google Identity, Microsoft Entra ID, AWS Cognito,
+Auth0 and Keycloak. Role-based access control is `ra-rbac`, "an Enterprise Edition package".
+Thirty-nine translation packages exist, Arabic, Hebrew and Farsi among them, and the locales
+page does not mention right-to-left rendering. Five built-in themes each have a light and a
+dark variant, and the B&W theme is "ideal for visually impaired users". The documentation
+index links to no page on testing or deployment.
 
-**Supabase** is "the Postgres development platform"; Apache-2.0; pushed 8 September 2026;
-108,978 stars. It is a backend: a table gets REST and GraphQL APIs and SDKs, and no screens.
+**Supabase** is "the Postgres development platform", a backend that gives a table REST and
+GraphQL APIs and SDKs and no screens; Apache-2.0; 108,978 stars.
 Auth covers password, magic link, one-time password, social login and SSO, and issues JWTs
 that row-level security policies read. Roles are Postgres's `anon` and `authenticated`, and
 tenant isolation is a policy the developer writes. Cron, queues, realtime and edge functions
@@ -159,21 +161,21 @@ are built in; full-text search is Postgres's, with the developer writing the ind
 query. Self-hosting runs on Docker without branching, managed backups or the management API.
 
 **NocoBase** is "an open-source AI + no-code platform for building business systems";
-licensed under its own NocoBase License Agreement, which names a free Community Edition and
-commercial editions and is not an OSI licence; pushed 8 September 2026; 24,107 stars. A
-collection gets a REST API, and pages and blocks are configured in the UI Builder. Plugins
-are TypeScript, and the plugin manager lets you "install, enable, or disable plugins as
-needed... without modifying code". Workflows with collection events, schedules, webhooks and
-approvals are configured "through a visual interface, without writing any code". Multi-app
-needs the App supervisor plugin, marked Enterprise Edition and above. Five interface
-languages ship, with a localisation plugin for the rest and no page on right-to-left. The
+24,107 stars. Its own NocoBase License Agreement covers a free Community Edition and paid
+editions, and it is not an OSI licence. A collection gets a REST API, and pages and blocks
+are configured in the UI Builder. Plugins are TypeScript, and the plugin manager lets you
+"install, enable, or disable plugins as needed... without modifying code". Workflows with
+collection events, schedules, webhooks and approvals are configured "through a visual
+interface, without writing any code". Multi-app needs the App supervisor plugin, marked
+Enterprise Edition and above. The interface comes in five languages, with a localisation
+plugin for the rest and no page on right-to-left. The
 theme editor has a dark and a compact mode. A server-side testing toolchain with
 `createMockServer` is documented; CI is not.
 
 **Directus** is "a backend your whole team can use" that wraps a SQL database with "REST,
 GraphQL, and SDKs out of the box"; Monospace Sustainable Core License, source-available and
-free for organisations under five million dollars of revenue and fifty employees; pushed
-8 September 2026; 37,816 stars. A collection gets both APIs and the Data Studio's collection
+free for organisations under five million dollars of revenue and fifty employees; 37,816
+stars. A collection gets both APIs and the Data Studio's collection
 and item pages. Access control is users, roles, policies and permissions per collection,
 field and item, set in the Settings module. Flows chain operations with a condition
 operation; the page shows them configured in the Studio. Content translations, a Studio
@@ -183,7 +185,7 @@ restart or with `EXTENSIONS_AUTO_RELOAD` on. A schedule trigger for Flows is not
 read, and no page covers testing.
 
 **Saltcorn** is "a free and open source no-code application builder"; MIT; pushed
-6 September 2026; 2,067 stars. Tables are created in the builder and views are "built
+September 6, 2026; 2,067 stars. Tables are created in the builder and views are "built
 visually"; a REST-like JSON API reads and writes tables. Each user has exactly one role out
 of four, and a resource names its minimum role; custom roles are promised for "future
 versions". Multitenancy runs one site per subdomain. Triggers bind an action to an event or
@@ -191,26 +193,26 @@ a schedule, and workflows are persisted runs built "block-by-block with Blockly"
 JavaScript. Plugins are npm packages installed from the module store at run time. A
 translations page exists; right-to-left, dark mode and testing are not documented.
 
-**Budibase** is "an open-source platform for internal tools and workflow automation"; GPL-3
-overall, with each package carrying its own licence; pushed 8 September 2026; 28,264 stars.
-Apps are built in the design section, and custom components in Svelte and custom datasources
-are the code extension points. Roles exist at tenant and workspace level with custom roles;
+**Budibase** is "an open-source platform for internal tools and workflow automation"; GPL-3,
+and each package has its own licence file; 28,264 stars. Apps are built in the design
+section, and custom components in Svelte and custom datasources are the code extension
+points. Roles exist at tenant and workspace level with custom roles;
 SSO is OpenID Connect and Google; workspaces and tenant management are documented for cloud
 and self-hosted. Translations are "currently available to Enterprise users only" and cover
 the system text. Themes are Light, Nord and Midnight, with dark mode not named as such. No
 page documents an API for the internal database, search, or test tooling.
 
 **Appsmith** is "an open-source developer tool that enables the rapid development of"
-internal applications; Apache-2.0; pushed 8 September 2026; 40,838 stars. Apps are built
-from widgets and queries in the editor, with git version control, branch protection and a
+internal applications; Apache-2.0; 40,838 stars. Apps are built from widgets and queries in
+the editor, with git version control, branch protection and a
 branch per environment. Form login, Google, GitHub, OpenID Connect and SAML are documented
 without naming editions. Granular access control and workflows carry the Business tier
 badge. Theming sets font, colour, radius and shadow; dark mode, translations, plugins and
 test tooling are not documented.
 
 **ToolJet** is "the open-source foundation of ToolJet AI, the enterprise app generation
-platform for internal tools"; AGPL-3.0; pushed 8 September 2026; 40,868 stars. Apps are
-built in the builder over data sources and the ToolJet database. Roles with granular
+platform for internal tools"; AGPL-3.0; 40,868 stars. Apps are built in the builder over
+data sources and the ToolJet database. Roles with granular
 permissions, SSO, workflows with schedules and webhooks, and light, dark and auto theme modes
 are documented. GitSync and multi-environment with promotion are Team Plan features, and the
 free Basic licence allows one workspace, two applications and two workflows. Localisation is
@@ -228,8 +230,8 @@ Playwright and test deployments in CI are documented. Self-hosting "is available
 Enterprise plans".
 
 **Backstage** is "an open source framework for building developer portals"; Apache-2.0;
-pushed 8 September 2026; 34,373 stars. An app is TypeScript in the adopter's repository,
-composed of frontend and backend plugins. Auth providers for Auth0, Azure, GitHub, GitLab,
+34,373 stars. An app is TypeScript in the adopter's repository, composed of frontend and
+backend plugins. Auth providers for Auth0, Azure, GitHub, GitLab,
 Google, Okta and others are built in, and the adopter writes the sign-in page and the
 resolvers. The permission framework runs policies the adopter writes. Search indexes the
 catalog, TechDocs and whatever a plugin's collator adds, on Lunr, Elasticsearch or Postgres.
@@ -241,13 +243,13 @@ frontend. `@backstage/backend-test-utils` and `@backstage/frontend-test-utils` s
 harnesses. Nothing derives a screen from a data model.
 
 **Odoo** is "open source apps to grow your business"; LGPL-3 for the Community edition, with
-Enterprise under its own licence; pushed 8 September 2026; 54,229 stars. A module is Python,
-XML and JavaScript on the addons path. A model gets its table through the ORM, and Odoo "is
-able to generate default views for a given model", which the tutorial then says "is never
+Enterprise under its own licence; 54,229 stars. You write a module in Python, XML and
+JavaScript, and put it on the addons path. The ORM creates the table for a model, and Odoo
+"is able to generate default views for a given model", which the tutorial then calls "never
 acceptable for a business application". Groups, access rights, record rules and field access
 are built in, as is multi-company. The external API is JSON-2 with API keys. Scheduled
-actions and server actions are built in, and automation rules are created "with Odoo
-Studio". Right-to-left needs the `rtlcss` package and has a history of forum-reported gaps.
+actions and server actions are built in, and an administrator creates automation rules "with
+Odoo Studio". Right-to-left needs the `rtlcss` package and has a history of forum-reported gaps.
 Installing a module happens from the Apps menu after the code is on the addons path and the
 server restarts. Python tests, HOOT JavaScript tests and tours are documented; CI is not.
 No page found covers dark mode or search views.

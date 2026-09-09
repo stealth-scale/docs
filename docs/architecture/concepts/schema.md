@@ -13,11 +13,11 @@ Say what goes wrong without this concept.
 
 Describe the mechanism. Add one short example.
 
-## How the schema is put together
+## Schema composition
 
 Say what contributes to it. Say when it is assembled.
 
-## What a check refuses
+## Refused changes
 
 | Change | Refused | Why |
 | ------ | ------- | --- |

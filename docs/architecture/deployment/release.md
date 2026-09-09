@@ -15,7 +15,7 @@ sidebar:
 
 Write a numbered list of the stages, in order.
 
-## What each stage proves
+## The guarantee from each stage
 
 | Stage | What it proves | What it does not prove |
 | ----- | -------------- | ---------------------- |

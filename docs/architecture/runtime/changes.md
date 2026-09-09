@@ -1,6 +1,6 @@
 ---
 title: Reacting to a change
-description: How a change in one part of the system reaches the other parts that care about it.
+description: Delivering a change from one part of the system to the other parts that care about it.
 sidebar:
   order: 5
 ---

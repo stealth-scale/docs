@@ -1,6 +1,6 @@
 ---
 title: Repositories and packages
-description: How a stealth repository is laid out, why a package exists, what it is named, and what its manifest and README carry.
+description: The layout of a stealth repository, the four reasons for a package, the naming rule, and the contents of a manifest and a README.
 sidebar:
   order: 1
 ---
@@ -13,7 +13,7 @@ written in the plural: `core/`, `themes/` and `tools/` in the toolchain, `founda
 `services/` and `plugins/` in the platform. A package is a leaf under one of them. What kind
 of package it is is stated in its README, never in the tree.
 
-Every repository carries the same files beside its trees:
+Every repository has the same files beside its trees:
 
 | File or directory    | Holds                                                                                                                                                          |
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -28,20 +28,20 @@ Every repository carries the same files beside its trees:
 | `bunfig.toml`        | The install policy                                                                                                                                             |
 | `.changeset/`        | The pending release notes, in a repository that publishes                                                                                                      |
 
-Only the root carries a `vite.config.ts`. A package adds one only for what is true of that
-package alone, such as several entries, a static file it ships, or a dev server's port.
+Only the root has a `vite.config.ts`, and a package adds one only for what is true of that
+package alone, such as several entries, a static file it publishes, or a dev server's port.
 
-## Why a package exists
+## The four reasons for a package
 
-A module is the default. A package exists for exactly one of four reasons, and the first line
-of its README names which:
+Write a module. Create a package only where this table gives a reason, and state which reason
+in the first line of its README:
 
 | Kind       | Reason                                                                                 | Published               |
 | ---------- | -------------------------------------------------------------------------------------- | ----------------------- |
 | library    | Somebody installs it on its own, or it owns a heavy dependency the rest must not carry | yes                     |
 | kit        | Another repository takes it at development time                                        | yes, as a devDependency |
 | deployable | An image or a remote; nobody installs it                                               | never                   |
-| cli        | It ships a bin                                                                         | yes                     |
+| cli        | It installs a command                                                                  | yes                     |
 
 Heavy means anything beyond React, Base UI, class-variance-authority and lucide on the web,
 and beyond the platform's own core on a server. A concern inside a package is a directory
@@ -90,7 +90,7 @@ The exports map is written by the pack step from the entries the package declare
 cannot drift from what is built. The source condition is named after the repository,
 `tooling-source` in the toolchain. Inside the workspace the repository's tsconfigs and Vite
 configs turn that one name on, so every package resolves to its source. A package installed
-from the registry carries its own repository's name, which no consumer turns on, so it
+from the registry has its own repository's name, which no consumer turns on, so it
 resolves to `dist`. [The repositories](../explanation/repositories.md) says why one shared
 name would not do.
 
@@ -98,28 +98,28 @@ A version is declared once, in the root manifest's catalog, and a package writes
 a sibling is `workspace:^`, which the pack step rewrites to a caret range. `workspace:*` is
 never used: it packs as an exact pin.
 
-React and react-dom are peers of every rendering package. A shipped file's imports are
-`dependencies`; a spec's, a story's and a fixture's are `devDependencies`, the package's own
-or the root's. A workspace package a shipped file imports is a dependency, never a
+React and react-dom are peers of every rendering package, and the imports of a published file
+are `dependencies`. A spec's, a story's and a fixture's are `devDependencies`, the package's
+own or the root's. A workspace package that a published file imports is a dependency, never a
 devDependency, or the bundler vendors a second copy into `dist`.
 
 ## The README
 
-The first line names the kind and the reason: `A library: …`, `A kit: …`, `A deployable: …`,
-`A cli: …`. Then what the package gives a consumer, and what it does not do. A released
-README ends with an install section naming the command that installs the package; no tool
-writes or checks that section yet. Nothing in a README narrates history or status.
+The first line states the kind and the reason: `A library: …`, `A kit: …`,
+`A deployable: …`, `A cli: …`. Then what the package gives a consumer, and what it does not
+do. A released README ends with an install section giving the command that installs the
+package; no tool writes or checks that section yet. Nothing in a README narrates history or status.
 
-## What the preset checks about the tree
+## Checks the preset runs on the tree
 
-One rule about the tree runs today, through the linter: the layering. The root config names
-each tier, what it may not import and why, and `lintConfig({ layers })` turns that into a
-`no-restricted-imports` rule per tier. It holds for what a package ships; a specification
-may reach for a development-time package whatever tier it is in.
+One rule about the tree runs today, and the linter enforces it: the layering. The root config
+declares each tier, what it may not import and why, and `lintConfig({ layers })` turns that
+into a `no-restricted-imports` rule per tier. It applies to what a package publishes; a
+specification may use a development-time package whatever tier it is in.
 
 The naming rule above, one spec beside every source, one owner per third-party dependency,
-and a shipped stylesheet scanning only its own `dist` are conventions this page states and no
-test checks yet. When one becomes a rule, it never pins a count or a list of what the tree
+and a published stylesheet scanning only its own `dist` are conventions this page states and
+no test checks yet. When one becomes a rule, it never pins a count or a list of what the tree
 holds today: it states the invariant and derives the expectation from the tree, so adding a
 package edits nothing outside that package. When a rule would demand a hand edit, the tool
 that makes the edit is built first.

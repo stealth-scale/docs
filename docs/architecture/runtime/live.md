@@ -1,6 +1,6 @@
 ---
 title: Live updates and streams
-description: How a screen learns that something changed, and how data that arrives in pieces reaches it.
+description: Updating a screen when something changes, and delivering data that arrives in pieces.
 sidebar:
   order: 7
 ---

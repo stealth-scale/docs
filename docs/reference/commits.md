@@ -1,17 +1,17 @@
 ---
 title: Commit messages
-description: 'The shape of a commit message: the header with its type, scope and imperative summary, the body that says what changed and why, and the footers for a breaking change or an issue. Five headers from the history, rewritten.'
+description: 'The parts of a commit message: the header with its type, scope and imperative summary, the body that says what changed and why, and the footers for a breaking change or an issue. Five headers from the history, rewritten.'
 sidebar:
   order: 5
 ---
 
-A commit message is read by someone scanning `git log` for the change that introduced or
-broke something, by a reviewer, and by the release tooling that turns commits into a
-changelog. It says what the change does and why, in words a reader who was not there
-understands. The format is Conventional Commits 1.0.0; the header rules are Angular's, the
-body rules are Go's.
+Three readers use a commit message: someone scanning `git log` for the change that introduced
+or broke something, a reviewer, and the release tooling that turns commits into a changelog.
+Write what the change does and why, in words a reader who was not there understands. The
+format is Conventional Commits 1.0.0, the header rules are Angular's, and the body rules are
+Go's.
 
-## The shape
+## The format
 
 ```
 <type>(<scope>)!: <summary>
@@ -21,9 +21,9 @@ body rules are Go's.
 <footer>
 ```
 
-The header is mandatory. The body is mandatory for every change to code; a `docs` or
-`chore` commit whose header says everything may stop there. A footer is written only when
-there is something to put in it: a breaking change, a deprecation, an issue.
+The header is mandatory, and so is the body for every change to code. A `docs` or `chore`
+commit whose header says everything may stop there. Write a footer only when there is
+something to put in it: a breaking change, a deprecation, an issue.
 
 ## The header
 
@@ -42,8 +42,7 @@ The summary completes the sentence "this change modifies the repository to …":
 `fix`, `remove`, `rename`, `move`, `extract`, `replace`, `stop`, `allow`, `derive`. It names
 the thing changed, the component, the package, the rule, the file, and what happens to it,
 so a reader can tell from the header alone which files the diff touches and what behaves
-differently afterwards. It is never a noun phrase describing the tree, never a title, never
-a metaphor.
+differently afterwards. Avoid a noun phrase describing the tree, a title, and a metaphor.
 
 | Type       | Used for                                                        | Example                                                              |
 | ---------- | --------------------------------------------------------------- | -------------------------------------------------------------------- |
@@ -60,9 +59,9 @@ a metaphor.
 
 ## The body
 
-One blank line after the header, then complete sentences or bullets, wrapped at 72
-columns, with no Markdown headings and no markup a terminal cannot show. The body says what
-changed and why, in engineering terms: the mechanism, not the intent.
+One blank line after the header, then complete sentences or bullets, wrapped at 72 columns.
+Leave out Markdown headings and any markup a terminal cannot show. Say what changed and why,
+in engineering terms, and describe the mechanism rather than the intent behind it.
 
 - What was wrong or missing before, when the contrast explains the change.
 - What the change does, per part, when it touches more than one thing.
@@ -121,7 +120,6 @@ A new package needs no edit outside its own directory.
 
 ## One change per commit
 
-A commit holds one change. A move and its rewrite are two commits, so a reviewer can see
-that the move lost nothing; a fix and the refactoring it made room for are two commits, so
-the fix can be reverted alone. No hook checks a message; a reviewer checks it against this
-page.
+Put one change in a commit, and split a move from its rewrite so a reviewer can see that the
+move lost nothing. Split a fix from the refactoring it made room for, so the fix can be
+reverted alone. No hook checks a message, so a reviewer checks it against this page.

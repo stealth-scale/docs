@@ -1,6 +1,6 @@
 ---
 title: The repositories
-description: Why the code is split into four repositories, what each one holds, and what crosses between them.
+description: The four repositories, what each contains, and what passes between them.
 sidebar:
   order: 2
 ---
@@ -22,7 +22,7 @@ flowchart LR
 Nothing points the other way: the toolchain knows no component, the design system knows no
 router, and the platform knows no product.
 
-## What each repository holds
+## The four repositories
 
 | Repository | Visibility | Holds                                                                                                                                                                                                                                                                                        |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -35,20 +35,20 @@ The directories under a root are the concepts a reader of that repository alread
 the plural. A package is a leaf under one of them, and its name is that path:
 [Repositories and packages](../reference/packages.md) has the rule and the examples.
 
-## Why a module is the default
+## Modules and packages
 
-The monorepo this cut comes from had ninety-three manifests for one system, most of them
-carrying a layering rule rather than serving a consumer. Layering is checked by path, so a
-package needs one of four reasons to exist: somebody installs it on its own; another
-repository takes it at development time; it is deployed as an image or a remote; or it ships
-a command. A concern inside a package is a directory with a subpath entry, so
+The monorepo this cut comes from had ninety-three manifests for one system, and most of them
+existed to express a layering rule rather than to serve a consumer. Layering is checked by
+path, so a package is warranted only when somebody installs it on its own, another repository
+takes it at development time, it is deployed as an image or a remote, or it installs a
+command. A concern inside a package is a directory with a subpath entry, so
 `@stealthscale/web-sdk/router` is one manifest and one version, tree-shaken per entry.
 
 ## What crosses between them
 
-**A browser speaks GraphQL, and nothing else.** Every read and write a screen makes goes to
-one gateway, which runs only the queries the product shipped. Backends and services speak
-Connect over protobuf to each other, and that never reaches a browser. The two protocols are
+**A browser speaks GraphQL only.** Every read and write a screen makes goes to one gateway,
+which runs only the queries the product published. Backends and services speak Connect over
+protobuf to each other, and that never goes to a browser. The two protocols are
 kept apart because they are asked for different things: a browser needs one query across
 several plugins, and a backend needs a typed procedure whose schema is checked before it is
 deployed.
@@ -59,22 +59,22 @@ web SDK knows federation exists, and the deployment document is the only place a
 named.
 
 **Words are ICU MessageFormat catalogues, resolved by the platform.** A component speaks keys
-through a resolver the root provides; a package ships its keys and their base locale as ICU
+through a resolver the root provides; a package includes its keys and their base locale as ICU
 data; the platform loads them into its translation chain, and an app outside the platform
 loads them into its own.
 
-**An SDK is for building a plugin; functionality is a plugin.** The backend SDK holds what no
-backend exists without: the process, the platform, the database, the outbox and the queue, the
-cache, keys and tokens, telemetry, the mail transport, rpc. The web SDK holds what no screen
-exists without. Everything that does something for a person, from billing to search, is a
+**An SDK is for building a plugin; functionality is a plugin.** The backend SDK contains what
+no backend exists without: the process, the platform, the database, the outbox and the queue,
+the cache, keys and tokens, telemetry, the mail transport, rpc. The web SDK contains what no
+screen exists without. Everything that does something for a person, from billing to search, is a
 plugin, and another plugin reaches it through that plugin's contract.
 
 ## What stays the same everywhere
 
-Every repository carries the same `docs/` tree, the same workflows calling the toolchain's,
-the same gates, and packages that resolve to their source inside the workspace and to `dist`
-outside it. Each repository names its own export condition for that, `tooling-source` in the
-toolchain. A condition every repository shared would follow a package to the registry: a
-repository that turns it on resolves everything through it, so a published package carrying
-the same key would point at a `src` directory the tarball does not ship. A package a
+Every repository has the same `docs/` tree, the same workflows calling the toolchain's, the
+same gates, and packages that resolve to their source inside the workspace and to `dist`
+outside it. Each repository declares its own export condition for that, `tooling-source` in
+the toolchain. A condition every repository shared would follow a package to the registry: a
+repository that turns it on resolves everything through it, so a published package with the
+same key would point at a `src` directory the tarball does not include. A package a
 repository installs matches no condition of its own and reads what was packed.

@@ -11,12 +11,12 @@ Break each goal from [Goals](goals.md) into the qualities that make it up. Use a
 
 ## Scenarios
 
-Write one row per scenario. Give every response a number, not an adjective.
+Write one row per scenario. Give every response a measurement.
 
 | Quality | What triggers it | What the system must do | How it is measured |
 | ------- | ---------------- | ----------------------- | ------------------ |
 |         |                  |                         |                    |
 
-## How each scenario is checked
+## The check behind each scenario
 
 Say which test, benchmark or review covers each scenario. Say which are not checked yet.

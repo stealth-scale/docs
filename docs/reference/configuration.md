@@ -5,11 +5,11 @@ sidebar:
   order: 3
 ---
 
-A stealth repository is configured once, at its root, in one `vite.config.ts`. The config
-spreads `stealthDefaults` and replaces the blocks that differ for this repository, each built
-by that block's own builder. A replaced block replaces the shared one whole, so every builder
-returns a complete block and takes options rather than a patch. [Code standards](code.md)
-says what the blocks enforce; this page says what each builder takes.
+Configure a stealth repository once, at its root, in one `vite.config.ts` that spreads
+`stealthDefaults` and replaces the blocks that differ for this repository, each built by that
+block's own builder. Replacing a block replaces the shared one whole, so every builder returns
+a complete block and takes options rather than a patch. [Code standards](code.md) says what
+the blocks enforce, and this page says what each builder takes.
 
 ```ts
 import { defineConfig } from 'vite-plus'
@@ -93,15 +93,15 @@ interface Layer {
 }
 ```
 
-`files` are the globs the tier holds, `forbid` the import patterns a package in it may not
-use, `except` what it may import anyway out of what `forbid` matches, and `because` the
-message shown where the rule fires. The rule holds for what a package ships; a specification
-may reach for a development-time package whatever tier it is in.
+`files` are the globs of the tier, `forbid` the import patterns a package in it may not use,
+`except` what it may import anyway out of what `forbid` matches, and `because` the message
+the linter prints. The rule applies to what a package publishes; a specification may use a
+development-time package whatever tier it is in.
 
 The overrides apply in this order: the web override, the layer overrides, the shared
 overrides, then the repository's own. The shared overrides say that a `*.config.ts` and a
-story file may default-export; that `.storybook/**` carries no docblocks and may
-default-export; and that a specification and a story get the `vitest` plugin, carry no
+story file may default-export; that `.storybook/**` needs no docblocks and may
+default-export; and that a specification and a story get the `vitest` plugin, need no
 docblocks, have no function-length limit, and may assert a type.
 
 ## packConfig
@@ -130,9 +130,9 @@ resolves the declarations under the `esm-only` profile with stylesheets excluded
 function runConfig(options?: Readonly<RunOptions>): RunBlock
 ```
 
-Settles that scripts and tasks are cached by their inputs and that `ci` never is. `ci` runs,
-in order, `bun install --frozen-lockfile`, `bun audit`, `vp run -r build`, `vp check` and
-`vp test`, then `vp run storybook:build` in a repository that ships a Storybook.
+Caches scripts and tasks by their inputs, and never caches `ci`, which runs in order:
+`bun install --frozen-lockfile`, `bun audit`, `vp run -r build`, `vp check` and `vp test`,
+then `vp run storybook:build` in a repository that publishes a Storybook.
 
 | Option      | Default        | Meaning                                                                                                                                                           |
 | ----------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -182,9 +182,9 @@ function serverSourceConditions(condition: string): string[]
 Each returns the repository's source condition ahead of Vite's own defaults, the client
 defaults for `resolve.conditions` and the server defaults for `ssr.resolve.conditions`.
 Setting either replaces Vite's defaults rather than adding to them, which is why the builders
-spread them back in. The client list reaches the browser resolver alone; the server list is
-what a specification and a server load a workspace package through, and without it a
-specification reads what the imported package last built. A package's own `vite.config.ts`
+spread them back in. Only the browser resolver reads the client list. A specification and a
+server load a workspace package through the server list, and without it a specification reads
+what the imported package last built. A package's own `vite.config.ts`
 inherits nothing from the root's, so a package config that resolves workspace packages sets
 both itself.
 
@@ -205,24 +205,24 @@ which is what the `ignore` option of `formatConfig` and `lintConfig` passes thro
 
 ## The tsconfig bases
 
-The package ships two tsconfig files and exports each at its own path.
+The package publishes two tsconfig files and exports each at its own path.
 
 | File                  | Sets                                                                                                                                                        |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `tsconfig/base.json`  | What every package compiles under: target and lib `es2023`, module `esnext`, resolution `bundler`, `noEmit`, and the checks [Code standards](code.md) lists |
 | `tsconfig/react.json` | The base, plus the `dom` and `dom.iterable` libs and `jsx: react-jsx`                                                                                       |
 
-Neither names a source condition. A repository extends `base.json` once, in its own
-`tsconfig.base.json`, and adds `customConditions` naming its condition; a package extends
-the repository's base and adds only its `include`. A package that renders extends
-`react.json` through the repository's base the same way. A package extending either declares
-`@stealthscale/tool-config` as a devDependency, which is what puts the files on disk.
+Neither declares a source condition, so extend `base.json` once per repository, in its own
+`tsconfig.base.json`, and add `customConditions` for that repository's condition. Every
+package then extends the repository's base and adds only its `include`, and one that renders
+reaches `react.json` through that same base. Declare `@stealthscale/tool-config` as a
+devDependency wherever either file is extended, which is what puts them on disk.
 
 ## A package's own config
 
-A package carries a `vite.config.ts` only for what is true of that package alone. It replaces
+A package gets a `vite.config.ts` only for what is true of that package alone. It replaces
 the root's block whole, so it calls the same builder again with the repository's source
-condition. Two packages in the toolchain carry one. The command-line package names its
+condition. Two packages in the toolchain have one. The command-line package declares its
 command, because the pack step would otherwise name the command after the package:
 
 ```ts
@@ -231,7 +231,7 @@ export default defineConfig({
 })
 ```
 
-The config package ships its tsconfig bases, which no build writes:
+The config package publishes its tsconfig bases, which no build writes:
 
 ```ts
 export default defineConfig({

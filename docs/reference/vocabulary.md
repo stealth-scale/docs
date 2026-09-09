@@ -41,7 +41,7 @@ the writing keeps the word below.
 | Connect       | The transport between backends and services, over protobuf. It never reaches a browser.                                                                                                      |
 | token         | What the deployment's identity provider issues, short-lived. The gateway checks it and passes on the claims, and every backend checks it again for itself.                                   |
 
-## What a plugin declares
+## A plugin's own declarations
 
 | Word           | Meaning                                                                                                                                                                                                                      |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

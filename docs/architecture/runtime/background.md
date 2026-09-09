@@ -1,5 +1,5 @@
 ---
-title: Work that outlives a request
+title: Work that runs after the response
 description: How work is scheduled, run and retried when nobody is waiting for it.
 sidebar:
   order: 6
@@ -21,9 +21,9 @@ Say what runs on a schedule. Say whose clock and timezone decide when.
 
 Say how many attempts a job gets. Say what happens after the last one.
 
-## How a person finds out
+## Reporting progress to a person
 
-Say how progress reaches a screen. Say what happens when the person has navigated away.
+Say how progress gets to a screen. Say what happens when the person has left the screen.
 
 ## What can go wrong
 

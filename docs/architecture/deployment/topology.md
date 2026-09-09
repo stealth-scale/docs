@@ -19,7 +19,7 @@ Say why the parts sit where they do. Name the quality goal each choice serves.
 | ---- | --------------- | --------------- | ------------- |
 |      |                 |                 |               |
 
-## Where each building block runs
+## Building blocks by node
 
 Add one row per container from [Containers](../building-blocks/containers.md).
 

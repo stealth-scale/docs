@@ -7,13 +7,13 @@ sidebar:
 
 ## What happens
 
-Draw a sequence diagram. Show the browser, every part it reaches, and the answer.
+Draw a sequence diagram. Show the browser, every part it calls, and the answer.
 
 ## Step by step
 
 Write a numbered list. Start each step with the part that acts.
 
-## Where the request is authorised
+## The authorisation points
 
 Say what each part checks. Say which check is the security boundary.
 

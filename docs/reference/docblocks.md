@@ -16,8 +16,8 @@ what comes back in every case, and what is thrown.
 
 ## What is documented
 
-Everything that has a name, exported or not. "Obvious from the name" is not an exemption:
-a name says what a thing is called, and a docblock says what it guarantees.
+Everything with a name gets one, exported or not, and "obvious from the name" is not an
+exemption: a name says what a thing is called, and a docblock says what it guarantees.
 
 | Declaration                                                                 | Carries                                                                                                                                                |
 | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -98,7 +98,7 @@ It says, in the present tense and as fact:
 - Why the thing exists, and when to reach for it over its sibling.
 - What must already be true before it is called, and what is true after it returns.
 - What it costs: a network round trip, a browser launched, a whole tree read.
-- What it never does: no validation, no retry, no write.
+- Which of validation, retrying and writing it leaves to the caller.
 - The order of what it returns, and the meaning of an empty result.
 
 It never says how the body is implemented, what the thing used to do, what it is going to
@@ -111,10 +111,10 @@ Every type is written in TypeScript syntax inside braces, exactly as the signatu
 it: `{readonly FieldIssue[]}`, `{Infer<S>}`, `{Map<string, boolean>}`,
 `{(value: unknown) => boolean}`, `{'light' | 'dark' | 'system'}`, `{string | undefined}`.
 Never Closure syntax (`Array.<T>`, `Object.<K, V>`, `function(string): number`, `?T`, `!T`),
-never `*`, `?`, `Object` or `Function`: write `unknown`, or the shape. TypeScript reads a
-tag's type only in a JavaScript file, so in a `.ts` file a tag that disagrees with the
-signature is wrong in silence: the reviewer compares the two, and a tag that names a type
-the file does not know fails lint.
+never `*`, `?`, `Object` or `Function`: write `unknown`, or the type itself. TypeScript reads
+a tag's type only in a JavaScript file, so in a `.ts` file a tag that disagrees with the
+signature is wrong in silence. The reviewer compares the two, and a tag whose type the file
+does not know fails lint.
 
 | Tag                     | Syntax                                                              | On                                                        |
 | ----------------------- | ------------------------------------------------------------------- | --------------------------------------------------------- |
@@ -136,9 +136,9 @@ handbook is explicit that "only documentation tags are supported in TypeScript f
 
 ### `@param`
 
-The description states the contract of that argument: its shape beyond the type, where it
-comes from, what it must already satisfy, and what the default is when the parameter is
-optional. It is one plain clause, or short full sentences: "The value to check. It comes
+The description states the contract of that argument: what it must contain beyond the type,
+where it comes from, what it must already satisfy, and what the default is when the parameter
+is optional. It is one plain clause, or short full sentences: "The value to check. It comes
 from a boundary: a request body, a parsed manifest." Never a noun with qualifiers hung off
 it by commas ("The refusals `fieldIssuesOf` wrote, in schema order"): when the origin or the
 order matters, it gets a sentence of its own. The name is never repeated, and "the value",
@@ -165,10 +165,10 @@ Never `[name=default]`: the default is stated in the sentence, once.
 
 ### `@returns`
 
-The type, then each case a caller handles: the success shape, the refusal shape, the order
-of a list, the meaning of an empty list, when it is `undefined`. A promise says what it
-resolves to. A predicate says which case is `true`. A function that returns nothing carries
-no `@returns`, and a `@returns` on one fails lint.
+The type, then each case a caller handles: what success returns, what a refusal returns, the
+order of a list, the meaning of an empty list, and when the value is `undefined`. For a
+promise, say what it resolves to; for a predicate, say which case is `true`. A function that
+returns nothing takes no `@returns`, and lint fails one that has it.
 
 | Do not write                                        | Write                                                                                                     |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
@@ -196,14 +196,14 @@ the signature has one, and a sentence saying what the parameter stands for:
 
 ### `@example`
 
-For a call whose shape the signature does not make obvious: a builder, an options object
-with interacting members, a function returning a function. A fenced block with the language
+For a call the signature does not make obvious: a builder, an options object with interacting
+members, a function returning a function. A fenced block with the language
 tag, showing one complete call and, in a comment, what it yields. Never a second copy of
 the usage the catalogue already shows.
 
 ### `@deprecated`
 
-The sentence names what to use instead and why the old one is going. A deprecated symbol
+The sentence says what to use instead and why the old one is going. A deprecated symbol
 keeps its full docblock, and the tag goes last. It stays until the last caller in every
 repository is gone, and a changeset announces it.
 
@@ -236,8 +236,8 @@ A constant:
 const HEADING = '## Install'
 ```
 
-A function, generic and throwing, is the form shown above. A predicate that is not exported
-gets the same treatment:
+A function, generic and throwing, takes the form in the preceding example. A predicate that is
+not exported gets the same treatment:
 
 ```ts
 /**
@@ -437,7 +437,7 @@ A hook:
 export function useMediaQuery(query: string): boolean {
 ```
 
-## What a docblock never says
+## Content that never appears in a docblock
 
 | Never                                                    | Instead                                                 |
 | -------------------------------------------------------- | ------------------------------------------------------- |
@@ -452,10 +452,10 @@ export function useMediaQuery(query: string): boolean {
 ## Line comments
 
 A `//` comment explains the implementation to the next editor: why this branch exists, which
-upstream bug the workaround covers, what a magic number means. It sits on its own line
+upstream bug the workaround covers, what a magic number means. It goes on its own line
 above the code it explains, with a space after the marker, as sentences. A comment that
-needs several lines is several `//` lines; `/* … */` is not used. `// TODO(name): …` names
-who owns the follow-up and what it is; a TODO never sits in a docblock.
+needs several lines is several `//` lines; `/* … */` is not used. `// TODO(name): …` says who
+is responsible for the follow-up and what it is; a TODO never goes in a docblock.
 
 ## What enforces it
 
@@ -479,5 +479,5 @@ rather than source. A fixtures file is source and carries docblocks like any oth
 | `sort-tags`, `tag-lines`, `check-line-alignment`, `check-indentation`, `require-asterisk-prefix`, `no-bad-blocks`, `no-blank-blocks`                     | Tags out of order, a missing blank line before the tags, alignment padding, a wrong prefix, a malformed block, an empty one                                  |
 | `match-description`                                                                                                                                      | "What", "Whatever", "Something", "Anything" or "Stuff" opening a tag                                                                                         |
 
-A line over 100 columns is a lint finding, not a reflow. What the rules cannot judge, the
-truth of a sentence and whether a type matches its signature, is what a review is for.
+Lint reports a line over 100 columns, and the formatter does not reflow it. A review judges
+what the rules cannot: whether a sentence is true, and whether a type matches its signature.

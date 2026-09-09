@@ -1,14 +1,14 @@
 ---
 title: Goals
-description: What the platform is for, who this document is written for, and the quality goals in priority order.
+description: The purpose of the platform, its readers, and the quality goals in priority order.
 sidebar:
   order: 1
 ---
 
-## What the platform is for
+## The purpose of the platform
 
 Write three or four sentences. Say what it does, who it is for, and which problem it removes.
-Do not name any technology here.
+Leave technology out of this section.
 
 ## Who reads this, and what they need from it
 

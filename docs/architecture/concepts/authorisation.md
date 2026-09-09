@@ -13,13 +13,13 @@ Say what goes wrong without this concept.
 
 Describe the mechanism. Add one short example.
 
-## Where each decision is made
+## The decision points
 
 | Layer | What it decides | What it cannot decide |
 | ----- | --------------- | --------------------- |
 |       |                 |                       |
 
-## What a client may assume
+## Assumptions a client may make
 
 Say what a screen may hide. Say why hiding is not security.
 

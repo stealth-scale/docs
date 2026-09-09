@@ -23,6 +23,6 @@ Add one row per setting that is not the same everywhere.
 
 List what is the same in every environment. Say why that matters.
 
-## How a change moves between them
+## Promotion between environments
 
 Say what promotes a change. Say what has to pass before it moves.

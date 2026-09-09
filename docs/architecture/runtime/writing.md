@@ -1,13 +1,13 @@
 ---
 title: Writing data
-description: The path a write takes, what makes a retry safe, and how a refusal reaches the field that caused it.
+description: The path a write takes, what makes a retry safe, and how a refusal gets back to the field that caused it.
 sidebar:
   order: 3
 ---
 
 ## What happens
 
-Draw a sequence diagram. Show the browser, every part it reaches, and the answer.
+Draw a sequence diagram. Show the browser, every part it calls, and the answer.
 
 ## Step by step
 
@@ -21,7 +21,7 @@ Say what makes a retry safe. Say where the key comes from.
 
 Say what the system does. Say what the second person sees.
 
-## How a refusal reaches the field
+## Refusals at the field
 
 Say how an error becomes a message next to the input that caused it.
 

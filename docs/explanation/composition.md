@@ -1,78 +1,71 @@
 ---
-title: Why the platform is shaped this way
+title: The five choices behind the platform
 description: 'The five choices the platform is built on, what each one buys, and what each one costs.'
 sidebar:
   order: 3
 ---
 
-Five choices decide the shape of everything else. Each buys something specific and each costs
-something specific, and this page states both. The architecture section says how the results
-work; this page says why they were chosen.
+Five choices decide everything else, and each one has a price this page states beside it. The
+architecture section describes how the results work, and this page gives the reasoning behind
+them.
 
 ## One application, and plugins loaded while it runs
 
-The application is built once. A deployment document names the plugins, and the application
-fetches each one when it starts.
+The application is built once, and a deployment document lists the plugins it fetches at
+start. A team can then release a plugin without anybody rebuilding the product, a company can
+add a capability by listing it in a document, and a plugin written in another repository, by
+another team or another company, can target this product with types.
 
-That buys independent delivery. A team ships a plugin without anybody rebuilding the product,
-and a company adds a capability by naming it in a document. It also lets a plugin written in
-another repository, by another team or another company, target this product with types.
-
-It costs version machinery. A plugin says which platform versions it was built for, the
-application refuses one that does not fit, and a release that removes a code file has to be
-survivable by a browser tab that is already open. The alternative, where the product imports
-its plugins and is rebuilt for each change, avoids all of that and puts one team's release in
-front of another team's.
+Version machinery is what that costs. A plugin says which platform versions it was built for,
+the application refuses one that does not fit, and a release that removes a code file has to
+be survivable by a browser tab that is already open. The alternative, where the product
+imports its plugins and is rebuilt for each change, needs none of it, and puts one team's
+release in front of another team's.
 
 ## A declaration derives the data layer, not the screens
 
 Declaring a record gives you the types, the schema, the API, the events and, where you want
-it, the storage. It does not give you a user interface until you ask for one.
+it, the storage, and it gives you no user interface until you ask for one. Teams repeat the
+plumbing under a record and almost never repeat the screen, so the platform derives the first
+and leaves the second. A plugin author calls a builder and gets an ordinary list, detail view
+and form, or composes the same components into whatever the work needs.
 
-That buys the part teams actually repeat. The plumbing under a record is the same everywhere,
-and the screen almost never is. A plugin author calls a builder and gets an ordinary list,
-detail view and form, or composes the same components into whatever the work needs.
-
-It costs a screen. A platform that renders your data model without being asked reaches a
-first result faster, and then argues with you about every layout after that.
+Somebody still writes that screen, which is what the choice costs. A platform that renders
+your data model without being asked reaches a first result faster, and then argues with you
+about every layout after that.
 
 ## One GraphQL API for the browser
 
-Every request a screen makes goes to one gateway, and only the queries a product shipped are
-allowed to run.
+Every request a screen makes goes to one gateway, which runs only the queries a product
+published. A screen showing three plugins' data therefore asks once instead of three times,
+one place checks who is calling so no backend repeats it, and the list of allowed queries
+stays short and known, so a browser cannot compose a query nobody reviewed.
 
-That buys three things. A screen showing three plugins' data asks once instead of three
-times. There is one place to check who is calling, rather than one per backend. And the list
-of allowed queries is short and known, so a browser cannot compose a query nobody reviewed.
-
-It costs a step between backends. A backend that needs another plugin's data goes through the
-gateway rather than calling that plugin directly, which is a request rather than a function
-call, and the graph has to be composed and checked before it is deployed.
+An extra step between backends is what that costs. A backend needing another plugin's data
+pays for a request through the gateway where a direct call would have been a function call,
+and the graph has to be composed and checked before it is deployed.
 
 ## A product is a document
 
-What a product is, which plugins it loads, how it is laid out and what its flags say, is a
-file the application reads when it starts.
+One file, read by the application at start, decides what a product is, which plugins it loads,
+how it is laid out and what its flags say. Deploying then needs no build: a new environment is
+a document, and a new product, given plugins that exist, is a plugin and a document. Nothing
+about an environment is compiled in, so nothing branches on an environment's name.
 
-That buys deployment without a build. A new environment is a document. A new product, given
-plugins that exist, is a plugin and a document. Nothing about an environment is compiled in,
-so nothing branches on an environment's name.
-
-It costs a large file that has to be right. A document that fails its schema stops the
-product from starting, and that is the one failure nobody inside the product can repair from
-a screen, so the message it prints has to be good.
+A large file that has to be right is what that costs. Should a document fail its schema the
+product does not start, which is the one failure nobody inside the product can repair from a
+screen, so the message it prints has to be good.
 
 ## Everything else is an interface with a default behind it
 
-Identity, configuration, flags, files, search, notifications and audit are each an interface.
-The platform ships a plugin for each, and a company replaces any of them with its own.
+Identity, configuration, flags, files, search, notifications and audit are each an interface,
+with a plugin from the platform behind it that a company can replace with its own. A company
+with an identity provider and a search cluster keeps both and takes the rest, and nothing that
+used them changes, because nothing that used them named them.
 
-That buys adoption. A company with an identity provider and a search cluster keeps both and
-takes the rest, and nothing that used them changes, because nothing that used them named them.
-
-It costs the shape of the interface. An interface has to fit everything behind it, so it
-offers what all of them can do. Reaching something only one implementation has means naming
-that one and accepting the coupling.
+Whatever an interface cannot express is what that costs. It has to fit everything behind it,
+so it offers what all of them can do, and using a capability only one implementation has means
+naming that implementation and accepting the coupling.
 
 ## Where to read the details
 

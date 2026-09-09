@@ -1,6 +1,6 @@
 ---
 title: Inside the API layer
-description: The components that answer a request from a screen, and how one request reaches everything that holds the data.
+description: The components that answer a request from a screen, and how one request gets to every store behind it.
 sidebar:
   order: 3
 ---

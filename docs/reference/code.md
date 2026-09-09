@@ -6,8 +6,8 @@ sidebar:
 ---
 
 Every repository is checked by one toolchain, configured once at its root through the
-preset `@stealthscale/tool-config` provides. What follows is what that configuration
-enforces. A package never carries a rule of its own that a root rule already covers.
+preset `@stealthscale/tool-config` provides. This page states what that configuration
+enforces. A package never adds a rule of its own that a root rule already covers.
 
 ## The toolchain
 
@@ -27,17 +27,17 @@ developer's machine.
 
 ## Formatting
 
-100 columns, single quotes, no semicolons, manifests sorted. The formatter does not wrap
-comments or prose: a docblock line and a Markdown line are wrapped by hand at 100 columns.
-Generated output is neither formatted nor linted: `dist/`, `coverage/`, `*.gen.*`, and the
-declaration file the pack step writes beside a config it reaches.
+The formatter sets 100 columns, single quotes, no semicolons and sorted manifests, and it
+wraps no comment and no line of documentation text, so a docblock line and a Markdown line are
+wrapped by hand at the same 100 columns. Generated output is neither formatted nor linted: `dist/`, `coverage/`,
+`*.gen.*`, and the declaration file the pack step writes beside a config it compiles.
 
 ## Lint
 
-oxlint's `correctness`, `suspicious`, `perf` and `pedantic` categories are errors. The
-`typescript`, `unicorn`, `oxc`, `import` and `promise` plugins run everywhere; `react` and
-`jsx-a11y` run on the globs a repository says render; Node's rules run on the globs it says
-run in Node. Taste is left to the formatter.
+oxlint's `correctness`, `suspicious`, `perf` and `pedantic` categories are errors, and the
+`typescript`, `unicorn`, `oxc`, `import` and `promise` plugins run everywhere. `react` and
+`jsx-a11y` run on the globs a repository says render, and Node's rules run on the globs it
+says run in Node. Taste is left to the formatter.
 
 Size is a proxy for whether a thing does one thing:
 
@@ -49,9 +49,9 @@ Size is a proxy for whether a thing does one thing:
 | nesting depth         | 4                                                         |
 | parameters            | 4                                                         |
 
-Beyond oxlint's own rules, two plugins are load-bearing. `eslint-plugin-jsdoc` holds every
-declaration, exported or not, to a typed multi-line docblock, as [Docblocks](docblocks.md)
-describes. `eslint-plugin-perfectionist` sorts imports, exports, object keys, interface
+Beyond oxlint's own rules, two plugins do most of the work, and the first of them is
+`eslint-plugin-jsdoc`, which requires a typed multi-line docblock on every declaration,
+exported or not, as [Docblocks](docblocks.md) describes. `eslint-plugin-perfectionist` sorts imports, exports, object keys, interface
 members, JSX props and union members alphabetically, with a blank line starting a new block,
 so a diff shows a change rather than a reordering.
 
@@ -64,9 +64,9 @@ Rules that stand for a security decision:
   markup is rendered, never assigned, and cookies belong to the package that owns
   authentication. A package that has to render untrusted text sanitises first and argues for
   its exception in its own override.
-- `no-restricted-imports`, per tier: the root config names each tier, what it may not import
-  and why, through `lintConfig({ layers })`. The rule holds for what a package ships; a
-  specification may reach for a development-time package whatever tier it is in.
+- `no-restricted-imports`, per tier: the root config declares each tier, what it may not
+  import and why, through `lintConfig({ layers })`. The rule applies to what a package
+  publishes; a specification may use a development-time package whatever tier it is in.
 
 ## Types
 
@@ -74,7 +74,7 @@ Rules that stand for a security decision:
 `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noUnusedLocals`, `noUnusedParameters`,
 `erasableSyntaxOnly`, `verbatimModuleSyntax`, `isolatedModules`, `allowImportingTsExtensions`,
 `moduleDetection: force`; target and lib `es2023`, module `esnext`, resolution `bundler`. The
-toolchain ships that base as `@stealthscale/tool-config/tsconfig/base.json`. A repository's
+toolchain publishes that base as `@stealthscale/tool-config/tsconfig/base.json`. A repository's
 `tsconfig.base.json` extends it and adds one thing, `customConditions` naming the
 repository's own source condition; every package extends the repository's base and adds
 nothing but its `include`. A package's tsconfig never includes its `vite.config.ts`, or the
@@ -105,7 +105,7 @@ Storybook loads by its default export and nothing outside a catalogue can load. 
 suite is not a review: coverage says a line ran, not that it behaved, so a spec asserts the
 outcome a caller sees.
 
-A spec on the real workspace never pins a count or a list of what the tree holds today. It
+A spec on the real workspace never pins a count or a list of what the tree contains today. It
 states the rule and derives the expectation from the tree; a scratch workspace in a temporary
 directory may pin, because the spec wrote it. Test data is realistic: names from more than
 one locale, amounts with a currency, identifiers that look like identifiers; never `foo`,
@@ -133,7 +133,7 @@ a browser, and runs the task:
 2. `vp run -r build`: every package packs, in dependency order, and its declarations resolve.
 3. `vp check`: the format, the lint findings and the type errors, in one pass.
 4. `vp test`: every specification and every story, at the coverage floor.
-5. The Storybook build, in a repository that ships one, after the specifications pass.
+5. The Storybook build, in a repository that has one, after the specifications pass.
 
 Every step fails closed.
 
@@ -145,8 +145,8 @@ consumer read it: publint reads the manifest and arethetypeswrong resolves the d
 under the `esm-only` profile, with a stylesheet export left out of the type check because it
 is not a module.
 
-A change to a published package carries a changeset file. On `main`, changesets turns the
-pending files into one version pull request; when it merges, `stealth release` publishes
+A change to a published package comes with a changeset file, and on `main` changesets turns
+the pending files into one version pull request. When that merges, `stealth release` publishes
 every package whose version is not on the registry yet, in dependency order, halting at the
 first failure. No long-lived token anywhere: trusted publishing is configured per package on
 npmjs.com, and the repository is public, which provenance requires.

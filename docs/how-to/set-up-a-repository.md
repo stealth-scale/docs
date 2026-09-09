@@ -124,7 +124,7 @@ export default defineConfig({
 })
 ```
 
-## 5. Ignore what a build writes
+## 5. Ignore the build output
 
 ```txt
 node_modules/
@@ -183,16 +183,16 @@ A repository that publishes also calls the toolchain's `release.yml`, and each o
 packages has trusted publishing configured on npmjs.com, naming the repository and that
 workflow file.
 
-## 7. Write the files every repository carries
+## 7. Write the files every repository needs
 
-Add `README.md`, `CONTRIBUTING.md`, `LICENSE`, `SECURITY.md` and `docs/README.md`.
-[Repositories and packages](../reference/packages.md) says what each holds; the `tooling`
-repository's are the model.
+Add `README.md`, `CONTRIBUTING.md`, `LICENSE`, `SECURITY.md` and `docs/README.md`, whose
+contents [Repositories and packages](../reference/packages.md) states. Copy the `tooling`
+repository's versions of them.
 
 ## 8. Add the first package
 
-Make a directory under one of the trees and give it four files. The manifest names the
-package for its path and exports its source under the repository's condition:
+Make a directory under one of the trees and give it four files. In the manifest, derive the
+package name from its path and export its source under the repository's condition:
 
 ```json
 {

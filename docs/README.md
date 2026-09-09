@@ -7,13 +7,13 @@ Start with the question you arrived with.
 
 ## I want to understand the system
 
-| I want to know                                                       | Read                                                              |
-| -------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| What stealth is, what you write, and what the platform gives you     | [What stealth is](explanation/what-stealth-is.md)                 |
-| Why the code is split into four repositories, and what each holds    | [The repositories](explanation/repositories.md)                   |
-| Why the platform is shaped this way, and what each choice costs      | [Why the platform is shaped this way](explanation/composition.md) |
-| How stealth compares with fifteen products, capability by capability | [How stealth compares](explanation/comparison.md)                 |
-| What a word here means: host, shell, plugin, contract, entity        | [The vocabulary](reference/vocabulary.md)                         |
+| I want to know                                                       | Read                                                               |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| What stealth is, what you write, and what the platform gives you     | [What stealth is](explanation/what-stealth-is.md)                  |
+| Why the code is split into four repositories, and what each holds    | [The repositories](explanation/repositories.md)                    |
+| The five choices behind the platform, and what each one costs        | [The five choices behind the platform](explanation/composition.md) |
+| How stealth compares with fifteen products, capability by capability | [How stealth compares](explanation/comparison.md)                  |
+| What a word here means: host, shell, plugin, contract, entity        | [The vocabulary](reference/vocabulary.md)                          |
 
 ## I want to know how it works
 
@@ -47,11 +47,10 @@ written yet.
 ## Where things go
 
 A page in `reference/` describes and does not instruct: what a rule is, what a field means,
-what a tool guarantees. A page in `explanation/` says why the system is shaped the way it is
-and sends the rules elsewhere. A page in `architecture/` says how one part of the platform
-works, in the present tense, with a diagram where a diagram shows what words do not. A page in
+what a tool guarantees. A page in `explanation/` gives the reasoning behind a decision and
+sends the rules elsewhere. A page in `architecture/` describes one part of the platform, in
+the present tense, with a diagram where a diagram shows what words cannot. A page in
 `how-to/` gives the steps for one goal.
 
 Design proposals, decisions and the roadmap are numbered records under `rfc/`, `adr/` and
-`roadmap/`. Until a repository is cut out of the monorepo, its records stay in that
-repository; this one holds none yet.
+`roadmap/`. This repository has none of them yet.

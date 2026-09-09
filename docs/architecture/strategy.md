@@ -1,14 +1,15 @@
 ---
 title: Solution strategy
-description: The decisions that shape everything else, the technology they imply, and how each quality goal is met.
+description: The decisions everything else follows from, the technology they imply, and the delivery of each quality goal.
 sidebar:
   order: 4
 ---
 
-Keep this page short. Only put a decision here if the rest of the section makes no sense
-without it. Everything else is an ADR.
+Keep this page short, and put a decision here only when the rest of the section makes no sense
+without it. Write an ADR for everything else, and link to it from the tables below. A reader
+should finish this page in two minutes.
 
-## The decisions that shape everything else
+## The decisions everything else follows from
 
 | Decision | Which quality goal it serves | ADR |
 | -------- | ---------------------------- | --- |
@@ -20,11 +21,11 @@ without it. Everything else is an ADR.
 | ------ | ------------------ | ---------------------------------- | --- |
 |        |                    |                                    |     |
 
-## How the system is split, and on what axis
+## The top-level split
 
-Say what the top-level parts are and why we cut them there. Point at the container diagram.
+Say what the top-level parts are. Say why we cut them there. Link to the container diagram.
 
-## How each quality goal is met
+## Delivery of each quality goal
 
 Add one row per quality goal from [Goals](goals.md).
 

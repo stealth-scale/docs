@@ -19,13 +19,13 @@ Say why a plugin has these parts.
 | ---- | -------------------------- | -------- | ------------------ |
 |      |                            |          |                    |
 
-## What a plugin shows to other plugins
+## Imports available to other plugins
 
-Say what another plugin can import, and what stays private.
+Say what another plugin can import. Say what remains private.
 
-## What a plugin may not do
+## Rules a plugin follows
 
-List the rules a plugin is held to, and say what enforces each one.
+List the rules that apply to a plugin. Name what enforces each one.
 
 ## Open points
 

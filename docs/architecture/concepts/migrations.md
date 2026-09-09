@@ -1,6 +1,6 @@
 ---
 title: Data change over time
-description: How a change to a data shape reaches data that already exists.
+description: Applying a change in a data model to the data that already exists.
 sidebar:
   order: 10
 ---

@@ -1,6 +1,6 @@
 ---
 title: Signing in, and calling as a person
-description: How a person is authenticated, what the rest of the system receives, and what happens when that expires.
+description: Authenticating a person, what the rest of the system receives, and the behaviour on expiry.
 sidebar:
   order: 4
 ---
@@ -13,7 +13,7 @@ Draw a sequence diagram. Show the sign-in, and one call made afterwards.
 
 Write a numbered list. Start each step with the part that acts.
 
-## What each part verifies
+## Verification at each part
 
 Say what each part checks for itself. Say what it takes on trust.
 
@@ -21,7 +21,7 @@ Say what each part checks for itself. Say what it takes on trust.
 
 Say what happens when the credential expires mid-session. Say what the person notices.
 
-## How an automated caller gets one
+## Credentials for an automated caller
 
 Say how a job or a script authenticates. Say what limits it.
 

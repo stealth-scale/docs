@@ -1,6 +1,6 @@
 ---
 title: Errors and refusals
-description: What happens when a call is refused, and how the reason reaches the person who caused it.
+description: What happens when a call is refused, and how the reason gets back to the person who caused it.
 sidebar:
   order: 7
 ---
@@ -13,11 +13,11 @@ Say what goes wrong without this concept.
 
 Describe the mechanism. Add one short example.
 
-## The shape of a refusal
+## The contents of a refusal
 
 Say what every refusal contains. Say what a caller can do with each part.
 
-## What a person sees
+## The message a person sees
 
 | Kind of failure | What is shown | What they can do next |
 | --------------- | ------------- | --------------------- |

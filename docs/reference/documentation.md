@@ -1,11 +1,11 @@
 ---
 title: Documentation
-description: The docs tree every repository carries, the numbered records and their statuses, and how the text is written.
+description: The docs tree in every repository, the numbered records and their statuses, and how the text is written.
 sidebar:
   order: 6
 ---
 
-A reader arrives with a question and reaches the answer without a second search. That is the
+A reader arrives with a question and finds the answer without a second search. That is the
 only thing the layout is for. Each document is in one place, and every index says what is
 really there. A directory exists only when there is something to put in it.
 
@@ -47,10 +47,10 @@ Until a repository is cut out of the monorepo, its records stay in that reposito
 
 ## Numbered records
 
-A file is `NNNN-short-name.md`: four digits, one higher than the highest on disk, never
-reused, never changed, never deleted. A rejected RFC and a dropped milestone stay on disk;
-they are the record of why not. Numbering is independent per directory, so a cross-type
-reference always carries its prefix: `ADR-0007`, never `0007`.
+Name a file `NNNN-short-name.md`, with four digits, one higher than the highest on disk. Never
+reuse a number, never change one, and never delete a record. Keep a rejected RFC and a dropped
+milestone on disk, because they record why not. Each directory numbers independently, so a
+cross-type reference always includes its prefix: `ADR-0007`, never `0007`.
 
 | Record    | Frontmatter                                                                                                           | Statuses                                                 |
 | --------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
@@ -58,10 +58,11 @@ reference always carries its prefix: `ADR-0007`, never `0007`.
 | ADR       | `adr`, `title`, `status`, `date`, `supersedes`, `superseded-by`, `rfc`                                                | Proposed, Accepted, Superseded, Deprecated               |
 | Milestone | `milestone`, `title`, `status`, `depends-on`, `ships-in`, `deadline`, `deadline-source`, `prd`, `rfc`                 | Planned, In progress, Done, Deferred, Dropped            |
 
-An RFC carries, in order: Summary, Motivation, Detailed design, Alternatives considered,
-Drawbacks, Open questions, Unresolved and future work, References. An ADR: Status, Context,
-Decision, Alternatives considered, Consequences, References. A milestone: Goal, Done when,
-Why now, Scope, Not in this milestone, Risks to the sequence, Changes, References.
+An RFC has these sections, in order: Summary, Motivation, Detailed design, Alternatives
+considered, Drawbacks, Open questions, Unresolved and future work, References. An ADR has
+Status, Context, Decision, Alternatives considered, Consequences, References. A milestone has
+Goal, Done when, Why now, Scope, Not in this milestone, Risks to the sequence, Changes,
+References.
 
 Each numbered directory has a `README.md` index table, ordered by number, with a row added on
 every write and updated on every status change. The roadmap's index is different: its order is
@@ -82,7 +83,7 @@ flowchart LR
 
 Nothing points at a milestone.
 
-Four rules keep the records honest:
+Four rules apply to every record:
 
 - **The links between records are in the frontmatter.** `supersedes`, `superseded-by`,
   `produces-adr`, `depends-on` and `rfc` are the only copy. A body states the fact, never
@@ -91,7 +92,7 @@ Four rules keep the records honest:
   as motivation and not in References; the link points one way, from the roadmap to the
   record.
 - **Past and present only.** A record does not know the future: no "will land", no "once the
-  registry exists", no dates. It states a scope exclusion ("this proposal carries no metadata
+  registry exists", no dates. It states a scope exclusion ("this proposal adds no metadata
   accessor") or a standing rule ("adding a field is a schema edit plus a regeneration").
 - **References go at the bottom**, in one table of sources from outside the document set.
   Running text names things naturally and carries its own argument.
@@ -107,17 +108,18 @@ Plain English, as to a colleague who knows the area and is short on time.
   caller, and an active verb. Not "the decision", "the capability", "adoption", and not a
   noun phrase standing in for a sentence: "Lists every refusal in the order the schema
   reported them", not "Every refusal, in schema order".
-- Give instructions and checkable statements, not properties. "Returns `ErrNotFound` instead
-  of panicking", not "handles errors gracefully". A number, not an adjective.
-- No metaphors: nothing lands, fires, surfaces, unlocks or graduates. No invented terms: use
-  the word the code declares, or ordinary English.
+- Give instructions and checkable statements rather than properties. Write "returns
+  `ErrNotFound` instead of panicking" and give the number, rather than calling the handling
+  graceful.
+- Avoid metaphors. Nothing lands, fires, surfaces, unlocks or graduates. Use the word the code
+  declares, or ordinary English, and invent no terms.
 - One word per concept, and short sentences with one idea each. No em dashes: rebuild the
   sentence. No aphorisms, no "not X but Y", no rhetorical questions, no throat-clearing.
 - A table for a fixed set of comparable things; a two-row table is a sentence. A code block
   for anything typed or copied; an interface is shown, never described. A list only for
-  parallel items. A diagram, in a fenced `mermaid` block, only where it shows a shape or an
-  order words describe badly, with every arrow labelled.
-- Headings say what the section holds; "Overview" and "Details" do not. Levels do not skip.
+  parallel items. A diagram, in a fenced `mermaid` block, only where it shows a structure or
+  an order words describe badly, with every arrow labelled.
+- Headings say what the section contains; "Overview" and "Details" do not. Levels do not skip.
 - Links say where they go, and a relative link to another Markdown file works both on GitHub
   and on the site.
 - Lines wrap at 100 columns. Tables are aligned by the formatter.

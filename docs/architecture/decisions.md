@@ -1,11 +1,11 @@
 ---
 title: Decisions
-description: How an architectural decision is recorded, and the index of the decisions taken so far.
+description: The record format for an architectural decision, and an index of those taken so far.
 sidebar:
   order: 9
 ---
 
-## How a decision is recorded
+## The record format
 
 Say which template an ADR uses. Say who writes one and who reviews it.
 

@@ -1,6 +1,6 @@
 ---
 title: Appearance
-description: How a product is styled, and what a customer can change about how it looks.
+description: The styling of a product, and the parts of it a customer can change.
 sidebar:
   order: 6
 ---

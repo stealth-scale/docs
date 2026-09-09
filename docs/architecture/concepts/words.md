@@ -13,7 +13,7 @@ Say what goes wrong without this concept.
 
 Describe the mechanism. Add one short example.
 
-## Where a string comes from
+## The lookup order
 
 Say what is looked up, in what order. Say what happens when nothing matches.
 

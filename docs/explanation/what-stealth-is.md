@@ -26,8 +26,8 @@ rules and the screens that are particular to your business.
 
 ## What building on it looks like
 
-Your operations team needs a tool for supplier agreements: who owns each one, when it
-renews, and who may change it.
+Your operations team needs a tool for supplier agreements: which person is responsible for
+each one, when it renews, and who may change it.
 
 1. You declare the agreement: its fields, which of them are searched, how one is titled, and
    who may read and change one. The platform derives the types, the API, the events and the
@@ -35,7 +35,7 @@ renews, and who may change it.
 2. You build the screens. A list, a detail view and a form each come from one line if the
    ordinary ones suit you, and you compose your own from the same components where they do
    not.
-3. You write the rule that is yours: a signed agreement's amount does not change without an
+3. You write your own rule: nobody changes the amount on a signed agreement without an
    approval.
 4. You write a deployment document naming your plugin, the platform plugins you want, and
    your theme.
@@ -68,18 +68,18 @@ the API, the design system and the translations are the same ones.
 [How stealth compares](comparison.md) checks sixteen capabilities against fifteen products,
 from each product's own documentation.
 
-## What the platform supplies
+## The parts you get
 
-Each of these is an interface with one implementation shipped behind it. You take the ones you
-do not have and replace the rest.
+Each of these is an interface with one implementation behind it, so you take the ones you do
+not already have and replace the rest with your own.
 
 - **Sign-in, or the one you already run.** The platform states what a verified caller looks
-  like and ships an identity plugin that produces it, with passkeys, organisations and roles.
-  A company with its own provider uses that one instead.
+  like and provides an identity plugin that produces it, with passkeys, organisations and
+  roles. A company with its own provider uses that one instead.
 - **One API for the browser.** A GraphQL gateway answers every request a screen makes, and it
-  accepts only the queries the product shipped.
-- **Your own services, where you have them.** A declaration names a gRPC or REST service you
-  already run, and the screens, the permissions and the agent tools work as they do for a
+  runs only the queries the product published.
+- **Your own services, where you have them.** A declaration points at a gRPC or REST service
+  you already run, and the screens, the permissions and the agent tools work as they do for a
   record the platform stores.
 - **Components rather than finished screens.** The design system, plus components that read a
   declaration so a table, a form and a field list come out consistent without deciding your
@@ -87,7 +87,7 @@ do not have and replace the rest.
 - **Words.** Every string a person reads is a key, rendered in that person's language and
   writing direction.
 - **Storage, events, jobs, flags, files, search, notifications, audit and telemetry.** Each is
-  an interface with one implementation shipped behind it.
+  an interface with one implementation behind it.
 - **Automations.** An administrator composes a trigger, conditions and actions from a screen.
   Every run is recorded and every action leaves an audit record.
 - **Deployment.** The application is built once, and a document per product and environment
@@ -106,17 +106,17 @@ platform hold the plugin. It is not only a component library, though it contains
 Four repositories hold the code, and [The repositories](repositories.md) says what each one
 holds and why the split runs where it does.
 
-- The toolchain exists: one preset that formats, lints, type-checks, tests at a 100% per-file
-  coverage floor, packs and publishes with provenance; the core libraries for validation, the
-  environment, locales, logging, results and themes; and a Storybook kit. None of it is on npm
-  yet.
-- This site is its own repository.
-- `ui` and `platform` hold every package's name, its README and an empty entry, and nothing
-  else yet. The architecture section describes what they will contain.
+The toolchain exists. One preset formats, lints, type-checks, tests at a 100% per-file
+coverage floor, packs and publishes with provenance. Beside it are the core libraries for
+validation, the environment, locales, logging, results and themes, and a Storybook kit. None
+of it is on npm yet.
+
+This site is its own repository, and so far `ui` and `platform` contain only the name of every
+package, its README and an empty entry file.
 
 ## The names
 
-Three names carry it, and each is used for exactly one thing:
+Three names are in use, and each means exactly one thing:
 
 | Name            | Used for                                                                              |
 | --------------- | ------------------------------------------------------------------------------------- |

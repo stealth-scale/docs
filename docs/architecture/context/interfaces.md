@@ -19,11 +19,11 @@ Every arrow on the context diagram gets a row on this page.
 | --------- | ------------ | -------- | ------ | ----------- |
 |           |              |          |        |             |
 
-## What each interface promises about compatibility
+## Compatibility promises
 
-Say how each interface is versioned and how long an old version keeps working.
+Say how each interface is versioned. Say how long an old version keeps working.
 
-## What each interface does when it fails
+## Failure behaviour
 
 Say what happens when the other side is slow, down, or returns something unexpected.
 
